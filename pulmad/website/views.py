@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from .models import HousingPreference, TransportInfo, ForumPost, ForumComment, Photo
 from .forms import HousingForm, TransportForm, ForumPostForm, ForumCommentForm, PhotoUploadForm
+from .models import RSVP
 
 
 def set_lang(request):
@@ -36,7 +37,14 @@ def logout_view(request):
 
 @login_required
 def home(request):
-    return render(request, 'website/home.html')
+    rsvp = None
+
+    # get RSVP for current user
+    rsvp, created = RSVP.objects.get_or_create(user=request.user)
+
+    return render(request, 'website/home.html', {
+        'rsvp': rsvp
+    })
 
 
 @login_required
@@ -235,3 +243,18 @@ def download_gallery(request, gallery_id):
 @login_required
 def games(request):
     return render(request, 'website/games.html')
+
+
+from .models import RSVP
+
+@login_required
+def toggle_rsvp(request):
+    rsvp, created = RSVP.objects.get_or_create(user=request.user)
+
+    if rsvp.coming:
+        rsvp.coming = False
+    else:
+        rsvp.coming = True
+
+    rsvp.save()
+    return redirect('home')  # change to your homepage name

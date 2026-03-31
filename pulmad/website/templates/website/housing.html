@@ -23,6 +23,8 @@
   <div class="card">
     <h2 class="card__title">{% if lang == "en" %}Fill in preference{% else %}Täida eelistus{% endif %}</h2>
     <p class="card__meta">{% if lang == "en" %}You can edit this later{% else %}Saad hiljem muuta{% endif %}</p>
+    <p class="card__meta">{% if lang == "en" %}We really hope that you stay overnight. Both the main house and the campings have 2 king size beds{% else %}Väga loodame et jääd ööseks. Nii peamajas kui kämpingus on igas toas 2 suurt voodit{% endif %}</p>
+    <p class="card__meta">{% if lang == "en" %}and we have more room than we have guests{% else %}ning majutusruumi on rohkem kui külalisi.{% endif %}</p>
     <hr class="divider">
 
     <p class="text-muted text-sm" style="margin-bottom:1.25rem">
@@ -43,8 +45,8 @@
             <label for="ht_peamaja">
               <span class="choice-card__icon">🏠</span>
               <span class="choice-card__text">
-                <span class="choice-card__name">Peamaja</span>
-                <span class="choice-card__desc">{% if lang == "en" %}Spot in the main house — included in price. Limited availability.{% else %}Koht peamajas — sisaldub hinnas. Kohtade arv on piiratud.{% endif %}</span>
+                <span class="choice-card__name">{% if lang == "en" %}Main house{% else %}Peamaja{% endif %}</span>
+                <span class="choice-card__desc">{% if lang == "en" %} — 2nd floor total of 7 rooms for 4 people each{% else %} — Peamaja teisel korrusel kokku 7 tuba{% endif %}</span>
               </span>
               <span class="choice-card__check"></span>
             </label>
@@ -56,8 +58,8 @@
             <label for="ht_camping">
               <span class="choice-card__icon">⛺</span>
               <span class="choice-card__text">
-                <span class="choice-card__name">Camping</span>
-                <span class="choice-card__desc">{% if lang == "en" %}Bring a tent or camper — free outdoor area.{% else %}Tooge kaasa telk või haagissuvilaga — vaba väliala.{% endif %}</span>
+                <span class="choice-card__name">{% if lang == "en" %}Camping{% else %}Kämping{% endif %}</span>
+                <span class="choice-card__desc">{% if lang == "en" %} — 6 tiny houses in the outside area{% else %} — Õuealal väike maja. Kokku 6tk{% endif %}</span>
               </span>
               <span class="choice-card__check"></span>
             </label>
@@ -69,8 +71,8 @@
             <label for="ht_eraldi">
               <span class="choice-card__icon">🏡</span>
               <span class="choice-card__text">
-                <span class="choice-card__name">Eraldi majutus <span class="badge badge-gold">+60€</span></span>
-                <span class="choice-card__desc">{% if lang == "en" %}Private room nearby. Extra charge of €60 per person.{% else %}Privaatne tuba lähiümbruses. Lisatasu 60€ inimese kohta.{% endif %}</span>
+                <span class="choice-card__name">{% if lang == "en" %}Seperate housing{% else %}Eraldi majutus{% endif %}<span class="badge badge-gold">+60€</span></span>
+                <span class="choice-card__desc">{% if lang == "en" %} — Private room 100m away. Extra charge of €60{% else %} — 100m kaugusel eraldi öömaja BO:KA pubi teisel korrusel.{% endif %}</span>
               </span>
               <span class="choice-card__check"></span>
             </label>
@@ -83,7 +85,7 @@
               <span class="choice-card__icon">🚗</span>
               <span class="choice-card__text">
                 <span class="choice-card__name">{% if lang == "en" %}Not staying overnight{% else %}Ei jää ööseks{% endif %}</span>
-                <span class="choice-card__desc">{% if lang == "en" %}Leaving the same evening — note transport separately.{% else %}Lahkud samal õhtul — märgi transpordi lehel.{% endif %}</span>
+                <span class="choice-card__desc">{% if lang == "en" %}pig{% else %}siga{% endif %}</span>
               </span>
               <span class="choice-card__check"></span>
             </label>
@@ -100,7 +102,7 @@
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="id_notes">{% if lang == "en" %}Notes (optional){% else %}Märkused (valikuline){% endif %}</label>
+        <label class="form-label" for="id_notes">{% if lang == "en" %}Notes / Perferred roommates{% else %}Märkused / Soovitud toakaaslased{% endif %}</label>
         <textarea name="notes" id="id_notes" class="form-control" rows="3"
           placeholder="{% if lang == 'en' %}Optional...{% else %}Valikuline...{% endif %}">{{ form.notes.value|default:'' }}</textarea>
       </div>

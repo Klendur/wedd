@@ -89,3 +89,13 @@ class Photo(models.Model):
 
     def is_image(self):
         return self.image.name.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))
+
+
+from django.contrib.auth.models import User
+
+class RSVP(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    coming = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username} - {'Coming' if self.coming else 'Not coming'}"

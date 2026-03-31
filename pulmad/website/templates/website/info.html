@@ -22,7 +22,7 @@
           <div style="display:flex;gap:1rem;align-items:flex-start">
             <div>
               <p class="form-label" style="margin-bottom:.2rem">{% if lang == "en" %}Location{% else %}Asukoht{% endif %}</p>
-              <p>{% if lang == "en" %}To be confirmed{% else %}Täpsustamisel{% endif %}</p>
+              <p>{% if lang == "en" %}Männiaru Puhkemaja{% else %}Männiaru Guesthouse{% endif %}</p>
               <p class="text-muted text-sm" style="margin-top:.3rem">
                 <!-- Replace the coordinates and address below when you have them -->
                 <a href="https://www.google.com/maps/search/?api=1&query=59.4370,24.7536"
@@ -38,18 +38,18 @@
       <div style="display:flex;gap:1rem;align-items:flex-start">
         <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">👗</span>
         <div>
-          <p class="form-label" style="margin-bottom:.2rem">{% trans "Riietuskood" %}</p>
-          <p>{% trans "Pidulik / semi-formaalne" %}</p>
-          <p class="text-muted text-sm">{% trans "Arvestage, et osa ajast veedame väljas." %}</p>
+          <p class="form-label" style="margin-bottom:.2rem">{% if lang == "en" %}Dresscode{% else %}Riietus{% endif %}</p>
+          <p>{% if lang == "en" %}Fancy / semi-formal{% else %}Pidulik / semi-formaalne{% endif %}</p>
+          <p class="text-muted text-sm">{% if lang == "en" %}Most of the time will be spent indoors but if possible take an umbrella{% else %}Enamjaolt oleme toas kuid võimalusel võtke vihmavari{% endif %}</p>
         </div>
       </div>
 
       <div style="display:flex;gap:1rem;align-items:flex-start">
         <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">🎁</span>
         <div>
-          <p class="form-label" style="margin-bottom:.2rem">{% trans "Kingid" %}</p>
-          <p>{% trans "Eelistame rahalisi kinkeid" %}</p>
-          <p class="text-muted text-sm">{% trans "Kontoanumber: EE000000000000000000" %}</p>
+          <p class="form-label" style="margin-bottom:.2rem">{% if lang == "en" %}Gifts{% else %}Kingitused{% endif %}</p>
+          <p>{% if lang == "en" %}Parim kink mahub übrikusse{% else %}The best gift fits in an envelope{% endif %}</p>
+          <p class="text-muted text-sm">{% if lang == "en" %}Support our honeymoon{% else %}Toeta meie mesinädalaid{% endif %}</p>
         </div>
       </div>
 

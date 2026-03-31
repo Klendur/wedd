@@ -1,5 +1,7 @@
 {% extends "website/base.html" %}
 {% block title %}Eliise & Klen — Pulmad{% endblock %}
+{% load static %}
+
 
 {% block extra_head %}
 <style>
@@ -58,6 +60,11 @@
     line-height: 1.8; color: rgba(248,246,241,.8); text-align: center;
     font-style: italic;
   }
+  .intro__text2 {
+    font-family: var(--ff-serif); font-size: 2rem; font-weight: 300;
+    line-height: 1.8; color: rgba(248,246,241,.8); text-align: center;
+    font-style: italic;
+  }
   .intro__text + .intro__text { margin-top: 1.25rem; }
 
   /* Photo pair */
@@ -79,6 +86,14 @@
     gap: .6rem; width: 100%; max-width: 320px; margin: 0 auto 1rem;
   }
   .home-links .btn-full-row { grid-column: 1 / -1; }
+  .home-links form {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .home-links form button {
+    width: 100%;
+  }
 </style>
 {% endblock %}
 
@@ -88,7 +103,7 @@
   <div class="home-hero__ornament">— ✦ —</div>
   <h1 class="home-hero__names">Eliise <span class="home-hero__amp">&</span><br>Klen</h1>
   <p class="home-hero__location">
-    {% if lang == "en" %}Wedding Day{% else %}Pulmaõhtu{% endif %}
+    {% if lang == "en" %}Wedding Day{% else %}Pulmad{% endif %}
   </p>
 
   <!-- Countdown -->
@@ -103,13 +118,40 @@
   </div>
 
   <nav class="home-links">
-    <a href="{% url 'housing' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Accommodation{% else %}Majutus{% endif %}</a>
     <a href="{% url 'food' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Food & Drinks{% else %}Toit & Jook{% endif %}</a>
-    <a href="{% url 'info' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Schedule{% else %}Päevakava{% endif %}</a>
+    <a href="{% url 'info' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Info{% else %}Info{% endif %}</a>
     <a href="{% url 'transport' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Transport{% else %}Transport{% endif %}</a>
+    <a href="{% url 'housing' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Accommodation{% else %}Majutus{% endif %}</a>
     <a href="{% url 'forum' %}" class="btn btn-ghost btn-sm">{% if lang == "en" %}Forum{% else %}Foorum{% endif %}</a>
     <a href="{% url 'photos' %}" class="btn btn-ghost btn-sm">{% if lang == "en" %}Photos{% else %}Fotod{% endif %}</a>
-    <a href="{% url 'games' %}" class="btn btn-gold btn-sm btn-full-row">{% if lang == "en" %}Games{% else %}Mängud{% endif %}</a>
+    {% if user.is_authenticated %}
+      <form action="{% url 'rsvp' %}" method="post">
+        {% csrf_token %}
+        
+        {% if rsvp and rsvp.coming %}
+          <button type="submit"
+            onclick="return confirm('{% if lang == "en" %}Are you sure you want to unregister?{% else %}Kas oled kindel, et tahad ennast eemaldada?{% endif %}')"
+            class="btn btn-outline btn-sm btn-full-row">
+            
+            {% if lang == "en" %}
+              You are registered (click to cancel)
+            {% else %}
+              Oled kirjas (vajuta tühistamiseks)
+            {% endif %}
+            
+          </button>
+        {% else %}
+          <button type="submit" class="btn btn-gold btn-sm btn-full-row">
+            {% if lang == "en" %}Sign up{% else %}Pane ennast kirja{% endif %}
+          </button>
+        {% endif %}
+        
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn btn-gold btn-sm btn-full-row">
+        Login to RSVP
+      </a>
+    {% endif %}
   </nav>
 </section>
 
@@ -118,11 +160,13 @@
 
 <div class="intro">
   {% if lang == "en" %}
-    <p class="intro__text">Welcome to our wedding website.</p>
+    <p class="intro__text2">Welcome to our wedding website!</p>
+    <p class="intro__text">- - -</p>
     <p class="intro__text">We all know that our 7-year love story is something truly special — something many people only dream of. Over these years we have experienced countless moments together, both big and small, that have helped us grow, bound us to each other, and brought us here, ready to say "yes" to one another.</p>
     <p class="intro__text">We are sincerely happy to invite you to share this special moment with us. Your presence means the world to us and will make this day even more unforgettable.</p>
   {% else %}
-    <p class="intro__text">Tere tulemast meie pulmalehele.</p>
+    <p class="intro__text2">Tere tulemast meie pulma lehele!</p>
+    <p class="intro__text">- - -</p>
     <p class="intro__text">Me kõik teame, et meie 7 aastat kestnud armastuslugu on midagi tõeliselt erilist, midagi sellist, millest sageli unistatakse. Nende aastate jooksul oleme koos kogenud lugematul hulgal hetki, nii suuri kui väikeseid, mis on meid ennast üles kasvatanud, meid omavahel sidunud ja toonud siia, kus oleme valmis ütlema teineteisele "jah".</p>
     <p class="intro__text">Meil on siiralt hea meel, et saame teid kutsuda seda erilist hetke meiega jagama. Teie kohalolek tähendab meile väga palju ning teeb selle päeva meie jaoks veelgi erilisemaks.</p>
   {% endif %}
@@ -131,10 +175,10 @@
 <!-- Photo pair — replace src with your actual images once you have them -->
 <div class="photo-pair">
   <div class="photo-pair__img">
-    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80" alt="Eliise & Klen" />
+    <img src="{% static 'images/1.jpeg' %}" alt="Eliise & Klen">
   </div>
   <div class="photo-pair__img">
-    <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=400&q=80" alt="Eliise & Klen" />
+    <img src="{% static 'images/2.jpeg' %}" alt="Eliise & Klen">
   </div>
 </div>
 
@@ -144,7 +188,7 @@
 
 {% block extra_js %}
 <script>
-  const target = new Date('2026-07-11T12:00:00');
+  const target = new Date('2026-07-11T15:00:00');
   function tick() {
     const now  = new Date();
     const diff = target - now;
