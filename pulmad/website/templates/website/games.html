@@ -1,0 +1,110 @@
+{% extends "website/base.html" %}
+{% block title %}{% if lang == "en" %}Games{% else %}Mängud{% endif %} — Eliise & Klen{% endblock %}
+
+{% block extra_head %}
+<style>
+  .games-locked {
+    min-height: calc(100vh - var(--nav-h) - 120px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 2rem 1.5rem;
+  }
+  .games-locked__icon { font-size: 3rem; margin-bottom: 1.5rem; opacity: .4; }
+  .games-locked__title {
+    font-family: var(--ff-serif); font-size: 2rem; font-weight: 300;
+    margin-bottom: .75rem;
+  }
+  .games-locked__text { color: var(--grey-lt); font-size: .9rem; line-height: 1.7; max-width: 340px; }
+  .games-grid {
+    display: grid; gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .game-card {
+    background: #141414; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    display: flex; flex-direction: column; gap: .75rem;
+  }
+  .game-card__icon { font-size: 2rem; }
+  .game-card__title { font-family: var(--ff-serif); font-size: 1.25rem; font-weight: 400; }
+  .game-card__desc { font-size: .85rem; color: var(--grey-lt); line-height: 1.6; flex: 1; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <p class="page-header__eyebrow">{% if lang == "en" %}Entertainment{% else %}Meelelahutus{% endif %}</p>
+  <h1 class="page-header__title">{% if lang == "en" %}Games{% else %}Mängud{% endif %}</h1>
+</div>
+
+{% if user.is_staff %}
+<!-- Admin/staff sees the games -->
+<div class="container">
+  <p class="text-muted text-sm" style="margin-bottom:1.5rem">
+    {% if lang == "en" %}Games available on the wedding day:{% else %}Pulmapäeval saadaval olevad mängud:{% endif %}
+  </p>
+  <div class="games-grid">
+
+    <div class="game-card">
+      <span class="game-card__icon">💌</span>
+      <h3 class="game-card__title">{% if lang == "en" %}Wishes for the couple{% else %}Soovid paarile{% endif %}</h3>
+      <p class="game-card__desc">{% if lang == "en" %}Write a personal wish for Eliise & Klen.{% else %}Kirjuta isiklik soov Eliisele ja Klenile.{% endif %}</p>
+      <a href="{% url 'forum' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Go to forum{% else %}Foorum{% endif %}</a>
+    </div>
+
+    <div class="game-card">
+      <span class="game-card__icon">📸</span>
+      <h3 class="game-card__title">{% if lang == "en" %}Photo challenge{% else %}Fotoväljakutse{% endif %}</h3>
+      <p class="game-card__desc">{% if lang == "en" %}Upload the best photo from the day — best one wins!{% else %}Laadi üles parim foto päevast — parim võidab!{% endif %}</p>
+      <a href="{% url 'photos' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Upload photo{% else %}Laadi foto{% endif %}</a>
+    </div>
+
+    <div class="game-card">
+      <span class="game-card__icon">🎯</span>
+      <h3 class="game-card__title">{% if lang == "en" %}Quiz{% else %}Viktoriiin{% endif %}</h3>
+      <p class="game-card__desc">{% if lang == "en" %}How well do you know Eliise & Klen? Coming soon!{% else %}Kui hästi tunned Eliise ja Kleni? Peagi saadaval!{% endif %}</p>
+      <span class="badge badge-grey">{% if lang == "en" %}Coming soon{% else %}Peagi{% endif %}</span>
+    </div>
+
+  </div>
+</div>
+
+{% else %}
+<!-- Regular users see a countdown -->
+<div class="games-locked">
+  <div class="games-locked__icon">🔒</div>
+  <h2 class="games-locked__title">{% if lang == "en" %}Unlocks on the wedding day{% else %}Avaneb pulmapäeval{% endif %}</h2>
+  <p class="games-locked__text">{% if lang == "en" %}Games and activities will be available on 11 July 2026. Come back then!{% else %}Mängud ja tegevused avanevad 11. juulil 2026. Tule siis tagasi!{% endif %}</p>
+  <div class="countdown" id="countdown" style="margin-top:2rem">
+    <div class="countdown__item"><span class="countdown__num" id="cd-d">--</span><span class="countdown__label">{% if lang == "en" %}days{% else %}päeva{% endif %}</span></div>
+    <span class="countdown__sep">·</span>
+    <div class="countdown__item"><span class="countdown__num" id="cd-h">--</span><span class="countdown__label">{% if lang == "en" %}hours{% else %}tundi{% endif %}</span></div>
+    <span class="countdown__sep">·</span>
+    <div class="countdown__item"><span class="countdown__num" id="cd-m">--</span><span class="countdown__label">min</span></div>
+    <span class="countdown__sep">·</span>
+    <div class="countdown__item"><span class="countdown__num" id="cd-s">--</span><span class="countdown__label">{% if lang == "en" %}sec{% else %}sek{% endif %}</span></div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+{% if not user.is_staff %}
+<script>
+  const target = new Date('2026-07-11T12:00:00');
+  function tick() {
+    const diff = target - new Date();
+    if (diff <= 0) { document.getElementById('countdown').innerHTML = '<p style="color:var(--gold);font-size:1.5rem">🎉</p>'; return; }
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor((diff%86400000)/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+{% endif %}
+{% endblock %}

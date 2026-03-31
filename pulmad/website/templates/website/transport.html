@@ -1,12 +1,11 @@
 {% extends "website/base.html" %}
-{% load i18n %}
-{% block title %}{% trans "Transport" %} — Eliise & Klen{% endblock %}
+{% block title %}{% if lang == "en" %}Transport{% else %}Transport{% endif %} — Eliise & Klen{% endblock %}
 
 {% block content %}
 <div class="page-header">
-  <p class="page-header__eyebrow">{% trans "Liiklemine" %}</p>
-  <h1 class="page-header__title">{% trans "Transport" %}</h1>
-  <p class="page-header__subtitle">{% trans "Anna teada, kuidas kohale jõuad." %}</p>
+  <p class="page-header__eyebrow">{% if lang == "en" %}Getting there{% else %}Liiklemine{% endif %}</p>
+  <h1 class="page-header__title">Transport</h1>
+  <p class="page-header__subtitle">{% if lang == "en" %}Let us know how you'll be arriving.{% else %}Anna teada, kuidas kohale jõuad.{% endif %}</p>
 </div>
 
 <div class="container">
@@ -15,79 +14,69 @@
   <div class="status-box">
     <span class="status-box__icon">✓</span>
     <div>
-      <p class="status-box__label">{% trans "Salvestatud" %}</p>
-      <p class="status-box__value">{{ submission.get_arrival_method_display }}{% if submission.free_seats > 0 %} · {{ submission.free_seats }} {% trans "vaba kohta" %}{% endif %}</p>
+      <p class="status-box__label">{% if lang == "en" %}Saved{% else %}Salvestatud{% endif %}</p>
+      <p class="status-box__value">{{ submission.get_arrival_method_display }}{% if submission.free_seats > 0 %} · {{ submission.free_seats }} {% if lang == "en" %}free seats{% else %}vaba kohta{% endif %}{% endif %}</p>
     </div>
   </div>
   {% endif %}
 
   <div class="card">
-    <h2 class="card__title">{% trans "Minu transpordiinfo" %}</h2>
-    <p class="card__meta">{% trans "Saad hiljem muuta" %}</p>
+    <h2 class="card__title">{% if lang == "en" %}My transport info{% else %}Minu transpordiinfo{% endif %}</h2>
+    <p class="card__meta">{% if lang == "en" %}You can edit this later{% else %}Saad hiljem muuta{% endif %}</p>
     <hr class="divider">
+
+    <p class="text-muted text-sm" style="margin-bottom:1.25rem">
+      {% if lang == "en" %}Submitting as:{% else %}Saadad kui:{% endif %}
+      <strong style="color:var(--white)">{{ user.get_full_name|default:user.username }}</strong>
+    </p>
 
     <form method="post">
       {% csrf_token %}
 
       <div class="form-group">
-        <label class="form-label">{{ form.name.label }}</label>
-        <input type="text" name="name" class="form-control"
-          value="{{ form.name.value|default:'' }}"
-          placeholder="{% trans 'Eesnimi Perekonnanimi' %}" />
-        {% if form.name.errors %}<p class="form-error">{{ form.name.errors.0 }}</p>{% endif %}
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">{{ form.arrival_method.label }}</label>
+        <label class="form-label">{% if lang == "en" %}How are you arriving?{% else %}Kuidas saabud?{% endif %}</label>
         <div class="choice-grid">
-          {% for value, label in form.arrival_method.field.choices %}
           <div class="choice-card">
-            <input type="radio" name="arrival_method" id="am_{{ value }}" value="{{ value }}"
-              {% if form.arrival_method.value == value %}checked{% endif %} />
-            <label for="am_{{ value }}">
-              <span class="choice-card__icon">
-                {% if value == 'own_car' %}🚗
-                {% elif value == 'bus' %}🚌
-                {% elif value == 'taxi' %}🚕
-                {% elif value == 'with_someone' %}👥
-                {% else %}✈️{% endif %}
-              </span>
-              <span class="choice-card__text">
-                <span class="choice-card__name">{{ label }}</span>
-              </span>
-              <span class="choice-card__check"></span>
-            </label>
+            <input type="radio" name="arrival_method" id="am_own_car" value="own_car" {% if form.arrival_method.value == 'own_car' %}checked{% endif %} />
+            <label for="am_own_car"><span class="choice-card__icon">🚗</span><span class="choice-card__text"><span class="choice-card__name">{% if lang == "en" %}Own car{% else %}Oma autoga{% endif %}</span></span><span class="choice-card__check"></span></label>
           </div>
-          {% endfor %}
+          <div class="choice-card">
+            <input type="radio" name="arrival_method" id="am_bus" value="bus" {% if form.arrival_method.value == 'bus' %}checked{% endif %} />
+            <label for="am_bus"><span class="choice-card__icon">🚌</span><span class="choice-card__text"><span class="choice-card__name">{% if lang == "en" %}Bus{% else %}Bussiga{% endif %}</span></span><span class="choice-card__check"></span></label>
+          </div>
+          <div class="choice-card">
+            <input type="radio" name="arrival_method" id="am_taxi" value="taxi" {% if form.arrival_method.value == 'taxi' %}checked{% endif %} />
+            <label for="am_taxi"><span class="choice-card__icon">🚕</span><span class="choice-card__text"><span class="choice-card__name">Takso / Bolt</span></span><span class="choice-card__check"></span></label>
+          </div>
+          <div class="choice-card">
+            <input type="radio" name="arrival_method" id="am_with_someone" value="with_someone" {% if form.arrival_method.value == 'with_someone' %}checked{% endif %} />
+            <label for="am_with_someone"><span class="choice-card__icon">👥</span><span class="choice-card__text"><span class="choice-card__name">{% if lang == "en" %}Getting a ride{% else %}Sõidan kaasa{% endif %}</span></span><span class="choice-card__check"></span></label>
+          </div>
+          <div class="choice-card">
+            <input type="radio" name="arrival_method" id="am_other" value="other" {% if form.arrival_method.value == 'other' %}checked{% endif %} />
+            <label for="am_other"><span class="choice-card__icon">🔀</span><span class="choice-card__text"><span class="choice-card__name">{% if lang == "en" %}Other{% else %}Muu{% endif %}</span></span><span class="choice-card__check"></span></label>
+          </div>
         </div>
-        {% if form.arrival_method.errors %}<p class="form-error">{{ form.arrival_method.errors.0 }}</p>{% endif %}
-      </div>
-
-      <div class="form-group" id="seats-group">
-        <label class="form-label" for="{{ form.free_seats.id_for_label }}">{{ form.free_seats.label }}</label>
-        <input type="number" name="free_seats" id="{{ form.free_seats.id_for_label }}"
-          class="form-control" min="0" max="10"
-          value="{{ form.free_seats.value|default:0 }}" />
-        <p class="form-hint">{% trans "Kui sõidad oma autoga, märgi mitu vaba kohta on." %}</p>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="{{ form.coming_from.id_for_label }}">{{ form.coming_from.label }}</label>
-        <input type="text" name="coming_from" id="{{ form.coming_from.id_for_label }}"
-          class="form-control"
-          value="{{ form.coming_from.value|default:'' }}"
-          placeholder="{% trans 'nt Tallinn, Tartu...' %}" />
+        <label class="form-label" for="id_free_seats">{% if lang == "en" %}Free seats in your car{% else %}Vabu kohti autos{% endif %}</label>
+        <input type="number" name="free_seats" id="id_free_seats" class="form-control" min="0" max="10" value="{{ form.free_seats.value|default:0 }}" />
+        <p class="form-hint">{% if lang == "en" %}Set to 0 if not driving.{% else %}Märgi 0 kui ei sõida autoga.{% endif %}</p>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
-        <textarea name="notes" id="{{ form.notes.id_for_label }}"
-          class="form-control" rows="2"
-          placeholder="{% trans 'Valikuline...' %}">{{ form.notes.value|default:'' }}</textarea>
+        <label class="form-label" for="id_coming_from">{% if lang == "en" %}Coming from{% else %}Kust tuled?{% endif %}</label>
+        <input type="text" name="coming_from" id="id_coming_from" class="form-control" value="{{ form.coming_from.value|default:'' }}" placeholder="{% if lang == 'en' %}e.g. Tallinn, Tartu...{% else %}nt Tallinn, Tartu...{% endif %}" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="id_notes">{% if lang == "en" %}Notes{% else %}Lisainfo{% endif %}</label>
+        <textarea name="notes" id="id_notes" class="form-control" rows="2" placeholder="{% if lang == 'en' %}Optional...{% else %}Valikuline...{% endif %}">{{ form.notes.value|default:'' }}</textarea>
       </div>
 
       <button type="submit" class="btn btn-gold btn-full">
-        {% if submission %}{% trans "Uuenda" %}{% else %}{% trans "Salvesta" %}{% endif %}
+        {% if submission %}{% if lang == "en" %}Update{% else %}Uuenda{% endif %}{% else %}{% if lang == "en" %}Save{% else %}Salvesta{% endif %}{% endif %}
       </button>
     </form>
   </div>
@@ -95,19 +84,17 @@
   {% if drivers %}
   <hr class="divider">
   <h2 style="font-family:var(--ff-serif);font-size:1.3rem;font-weight:300;margin-bottom:1rem">
-    🚗 {% trans "Autod vabade kohtadega" %}
+    🚗 {% if lang == "en" %}Cars with free seats{% else %}Autod vabade kohtadega{% endif %}
   </h2>
-  <p class="text-muted text-sm" style="margin-bottom:1rem">{% trans "Võta ühendust, et sõita koos!" %}</p>
+  <p class="text-muted text-sm" style="margin-bottom:1rem">{% if lang == "en" %}Get in touch to share a ride!{% else %}Võta ühendust, et sõita koos!{% endif %}</p>
   {% for driver in drivers %}
   <div class="card" style="padding:1rem 1.25rem">
     <div class="flex-between">
       <div>
-        <p style="font-weight:400">{{ driver.name }}</p>
-        {% if driver.coming_from %}
-        <p class="text-muted text-sm">{% trans "Tuleb" %}: {{ driver.coming_from }}</p>
-        {% endif %}
+        <p style="font-weight:400">{{ driver.user.get_full_name|default:driver.user.username }}</p>
+        {% if driver.coming_from %}<p class="text-muted text-sm">{% if lang == "en" %}From{% else %}Tuleb{% endif %}: {{ driver.coming_from }}</p>{% endif %}
       </div>
-      <span class="badge badge-gold">{{ driver.free_seats }} {% trans "kohta" %}</span>
+      <span class="badge badge-gold">{{ driver.free_seats }} {% if lang == "en" %}seats{% else %}kohta{% endif %}</span>
     </div>
   </div>
   {% endfor %}

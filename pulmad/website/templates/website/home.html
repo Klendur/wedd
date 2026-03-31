@@ -1,20 +1,167 @@
 {% extends "website/base.html" %}
-{% load i18n %}
-{% block title %}Eliise & Klen — {% trans "Pulmad" %}{% endblock %}
+{% block title %}Eliise & Klen — Pulmad{% endblock %}
+
+{% block extra_head %}
+<style>
+  .home-hero {
+    min-height: calc(100vh - var(--nav-h));
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 3rem 1.5rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .home-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgba(201,168,76,.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .home-hero__date {
+    font-size: .68rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .home-hero__ornament {
+    font-family: var(--ff-serif); font-size: 1.5rem;
+    color: var(--gold); opacity: .35; margin-bottom: 1rem; letter-spacing: .4em;
+  }
+  .home-hero__names {
+    font-family: var(--ff-serif);
+    font-size: clamp(3.5rem, 16vw, 6rem);
+    font-weight: 300; font-style: italic; line-height: 1; margin-bottom: .4rem;
+  }
+  .home-hero__amp { color: var(--gold); }
+  .home-hero__location {
+    font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--grey-lt); margin-bottom: 2.5rem;
+  }
+
+  /* Countdown */
+  .countdown { display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 2.5rem; }
+  .countdown__item { text-align: center; min-width: 56px; }
+  .countdown__num {
+    font-family: var(--ff-serif); font-size: clamp(2rem, 8vw, 2.8rem);
+    font-weight: 300; color: var(--gold); line-height: 1;
+    display: block;
+  }
+  .countdown__label {
+    font-size: .58rem; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--grey-lt); margin-top: .25rem; display: block;
+  }
+  .countdown__sep {
+    font-family: var(--ff-serif); font-size: 2rem; color: var(--gold);
+    opacity: .4; align-self: flex-start; padding-top: .15rem;
+  }
+
+  /* Intro section */
+  .intro { max-width: 640px; margin: 0 auto; padding: 2.5rem 1.25rem; }
+  .intro__text {
+    font-family: var(--ff-serif); font-size: 1.15rem; font-weight: 300;
+    line-height: 1.8; color: rgba(248,246,241,.8); text-align: center;
+    font-style: italic;
+  }
+  .intro__text + .intro__text { margin-top: 1.25rem; }
+
+  /* Photo pair */
+  .photo-pair {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: .75rem; max-width: 640px; margin: 2rem auto;
+    padding: 0 1.25rem;
+  }
+  .photo-pair__img {
+    aspect-ratio: 3/4; overflow: hidden; border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .photo-pair__img img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-pair__img:first-child { margin-top: 1.5rem; }
+
+  /* Nav links */
+  .home-links {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: .6rem; width: 100%; max-width: 320px; margin: 0 auto 1rem;
+  }
+  .home-links .btn-full-row { grid-column: 1 / -1; }
+</style>
+{% endblock %}
 
 {% block content %}
-<section class="hero">
-  <p class="hero__date">{% trans "22. august 2025" %} · {% trans "Eesti" %}</p>
-  <div class="hero__ornament">— ✦ —</div>
-  <h1 class="hero__names">Eliise <span class="hero__amp">&</span><br>Klen</h1>
-  <p class="hero__location">{% trans "Pulmaõhtu" %}</p>
-  <nav class="hero__links">
-    <a href="{% url 'housing' %}" class="btn btn-gold">⌂ {% trans "Majutus" %}</a>
-    <a href="{% url 'food' %}" class="btn btn-outline">{% trans "Toit & Jook" %}</a>
-    <a href="{% url 'info' %}" class="btn btn-outline">{% trans "Info & Päevakava" %}</a>
-    <a href="{% url 'transport' %}" class="btn btn-outline">{% trans "Transport" %}</a>
-    <a href="{% url 'forum' %}" class="btn btn-ghost">{% trans "Foorum" %}</a>
-    <a href="{% url 'photos' %}" class="btn btn-ghost">{% trans "Fotod" %}</a>
+<section class="home-hero">
+  <p class="home-hero__date">11. juuli 2026</p>
+  <div class="home-hero__ornament">— ✦ —</div>
+  <h1 class="home-hero__names">Eliise <span class="home-hero__amp">&</span><br>Klen</h1>
+  <p class="home-hero__location">
+    {% if lang == "en" %}Wedding Day{% else %}Pulmaõhtu{% endif %}
+  </p>
+
+  <!-- Countdown -->
+  <div class="countdown" id="countdown">
+    <div class="countdown__item"><span class="countdown__num" id="cd-d">--</span><span class="countdown__label">{% if lang == "en" %}days{% else %}päeva{% endif %}</span></div>
+    <span class="countdown__sep">·</span>
+    <div class="countdown__item"><span class="countdown__num" id="cd-h">--</span><span class="countdown__label">{% if lang == "en" %}hours{% else %}tundi{% endif %}</span></div>
+    <span class="countdown__sep">·</span>
+    <div class="countdown__item"><span class="countdown__num" id="cd-m">--</span><span class="countdown__label">{% if lang == "en" %}min{% else %}min{% endif %}</span></div>
+    <span class="countdown__sep">·</span>
+    <div class="countdown__item"><span class="countdown__num" id="cd-s">--</span><span class="countdown__label">{% if lang == "en" %}sec{% else %}sek{% endif %}</span></div>
+  </div>
+
+  <nav class="home-links">
+    <a href="{% url 'housing' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Accommodation{% else %}Majutus{% endif %}</a>
+    <a href="{% url 'food' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Food & Drinks{% else %}Toit & Jook{% endif %}</a>
+    <a href="{% url 'info' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Schedule{% else %}Päevakava{% endif %}</a>
+    <a href="{% url 'transport' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Transport{% else %}Transport{% endif %}</a>
+    <a href="{% url 'forum' %}" class="btn btn-ghost btn-sm">{% if lang == "en" %}Forum{% else %}Foorum{% endif %}</a>
+    <a href="{% url 'photos' %}" class="btn btn-ghost btn-sm">{% if lang == "en" %}Photos{% else %}Fotod{% endif %}</a>
+    <a href="{% url 'games' %}" class="btn btn-gold btn-sm btn-full-row">{% if lang == "en" %}Games{% else %}Mängud{% endif %}</a>
   </nav>
 </section>
+
+<!-- Intro text + photos -->
+<hr class="divider" style="margin:0">
+
+<div class="intro">
+  {% if lang == "en" %}
+    <p class="intro__text">Welcome to our wedding website.</p>
+    <p class="intro__text">We all know that our 7-year love story is something truly special — something many people only dream of. Over these years we have experienced countless moments together, both big and small, that have helped us grow, bound us to each other, and brought us here, ready to say "yes" to one another.</p>
+    <p class="intro__text">We are sincerely happy to invite you to share this special moment with us. Your presence means the world to us and will make this day even more unforgettable.</p>
+  {% else %}
+    <p class="intro__text">Tere tulemast meie pulmalehele.</p>
+    <p class="intro__text">Me kõik teame, et meie 7 aastat kestnud armastuslugu on midagi tõeliselt erilist, midagi sellist, millest sageli unistatakse. Nende aastate jooksul oleme koos kogenud lugematul hulgal hetki, nii suuri kui väikeseid, mis on meid ennast üles kasvatanud, meid omavahel sidunud ja toonud siia, kus oleme valmis ütlema teineteisele "jah".</p>
+    <p class="intro__text">Meil on siiralt hea meel, et saame teid kutsuda seda erilist hetke meiega jagama. Teie kohalolek tähendab meile väga palju ning teeb selle päeva meie jaoks veelgi erilisemaks.</p>
+  {% endif %}
+</div>
+
+<!-- Photo pair — replace src with your actual images once you have them -->
+<div class="photo-pair">
+  <div class="photo-pair__img">
+    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80" alt="Eliise & Klen" />
+  </div>
+  <div class="photo-pair__img">
+    <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=400&q=80" alt="Eliise & Klen" />
+  </div>
+</div>
+
+<div style="height:3rem"></div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const target = new Date('2026-07-11T12:00:00');
+  function tick() {
+    const now  = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<p style="color:var(--gold);font-family:var(--ff-serif);font-size:1.5rem">🎉</p>';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
 {% endblock %}

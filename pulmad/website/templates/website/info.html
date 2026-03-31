@@ -19,11 +19,20 @@
 
       <div style="display:flex;gap:1rem;align-items:flex-start">
         <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">📍</span>
-        <div>
-          <p class="form-label" style="margin-bottom:.2rem">{% trans "Asukoht" %}</p>
-          <p>{% trans "Lisatakse hiljem" %}</p>
-          <p class="text-muted text-sm">{% trans "Koordinaadid ja kaart tulevad peagi" %}</p>
-        </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start">
+            <div>
+              <p class="form-label" style="margin-bottom:.2rem">{% if lang == "en" %}Location{% else %}Asukoht{% endif %}</p>
+              <p>{% if lang == "en" %}To be confirmed{% else %}Täpsustamisel{% endif %}</p>
+              <p class="text-muted text-sm" style="margin-top:.3rem">
+                <!-- Replace the coordinates and address below when you have them -->
+                <a href="https://www.google.com/maps/search/?api=1&query=59.4370,24.7536"
+                  target="_blank" rel="noopener"
+                  style="color:var(--gold);display:inline-flex;align-items:center;gap:.3rem">
+                  {% if lang == "en" %}Open in Google Maps{% else %}Ava Google Mapsis{% endif %}
+                </a>
+              </p>
+            </div>
+          </div>
       </div>
 
       <div style="display:flex;gap:1rem;align-items:flex-start">

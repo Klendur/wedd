@@ -1,76 +1,88 @@
 {% extends "website/base.html" %}
-{% load i18n %}
-{% block title %}{% trans "Fotod" %} — Eliise & Klen{% endblock %}
+{% block title %}{% if lang == "en" %}Photos{% else %}Fotod{% endif %} — Eliise & Klen{% endblock %}
 
 {% block content %}
 <div class="page-header">
-  <p class="page-header__eyebrow">{% trans "Galerii" %}</p>
-  <h1 class="page-header__title">{% trans "Fotod" %}</h1>
-  <p class="page-header__subtitle">{% trans "Jaga oma mälestusi." %}</p>
+  <p class="page-header__eyebrow">{% if lang == "en" %}Gallery{% else %}Galerii{% endif %}</p>
+  <h1 class="page-header__title">{% if lang == "en" %}Photos{% else %}Fotod{% endif %}</h1>
+  <p class="page-header__subtitle">{% if lang == "en" %}Share your memories.{% else %}Jaga oma mälestusi.{% endif %}</p>
 </div>
 
 <div class="container">
 
   <!-- Upload -->
   <div class="card">
-    <h2 class="card__title">{% trans "Laadi foto üles" %}</h2>
+    <h2 class="card__title">{% if lang == "en" %}Upload photos{% else %}Laadi fotod üles{% endif %}</h2>
     <hr class="divider">
-    <form method="post" enctype="multipart/form-data" id="upload-form">
+    <form method="post" action="{% url 'photos_upload' %}" enctype="multipart/form-data" id="upload-form">
       {% csrf_token %}
-      <div class="upload-area" id="upload-area" onclick="document.getElementById('id_image').click()">
-        <input type="file" name="image" id="id_image" accept="image/*" />
+      <div class="upload-area" id="upload-area">
+        <input type="file" name="images" id="id_images" accept="image/*" multiple />
         <div class="upload-area__icon" id="upload-icon">📷</div>
-        <p class="upload-area__text" id="upload-text">{% trans "Vajuta siia foto valimiseks" %}</p>
-        <p class="text-muted text-sm mt-1">JPG, PNG, WEBP · {% trans "max 10 MB" %}</p>
+        <p class="upload-area__text" id="upload-text">
+          {% if lang == "en" %}Tap to choose photos (multiple allowed){% else %}Vajuta fotode valimiseks (saad valida mitu){% endif %}
+        </p>
+        <p class="text-muted text-sm mt-1">JPG · PNG · WEBP</p>
       </div>
-      {% if form.image.errors %}<p class="form-error">{{ form.image.errors.0 }}</p>{% endif %}
 
       <div class="form-group">
-        <label class="form-label">{{ form.caption.label }}</label>
-        <input type="text" name="caption" class="form-control"
-          placeholder="{% trans 'Kirjelda fotot...' %}"
-          value="{{ form.caption.value|default:'' }}" />
+        <label class="form-label">{% if lang == "en" %}Caption (optional){% else %}Pealdis (valikuline){% endif %}</label>
+        <input type="text" name="caption" class="form-control" placeholder="{% if lang == 'en' %}Describe this set...{% else %}Kirjelda fotosid...{% endif %}" />
       </div>
 
-      <button type="submit" class="btn btn-gold btn-full" id="upload-btn">{% trans "Laadi üles" %}</button>
+      <button type="submit" class="btn btn-gold btn-full" id="upload-btn">
+        {% if lang == "en" %}Upload{% else %}Laadi üles{% endif %}
+      </button>
     </form>
   </div>
 
   <hr class="divider">
 
-  <!-- Gallery -->
-  {% if photos %}
-  <p class="text-muted text-sm" style="margin-bottom:1rem">
-    {{ photos.count }} {% trans "fotot" %}
-  </p>
-  <div class="photo-grid" id="photo-grid">
-    {% for photo in photos %}
-    <div class="photo-item">
-      <a href="{{ photo.image.url }}" download target="_blank">
-        <img src="{{ photo.image.url }}" alt="{{ photo.caption|default:'' }}" loading="lazy" />
-      </a>
-      <div class="photo-item__overlay">
-        {% if photo.caption %}
-        <p class="photo-item__caption">{{ photo.caption }}</p>
-        {% endif %}
-        <div class="photo-item__actions">
-          <a href="{{ photo.image.url }}" download class="btn btn-outline btn-sm" title="{% trans 'Laadi alla' %}">↓</a>
-          {% if photo.user == request.user %}
-          <form method="post" action="{% url 'delete_photo' photo.pk %}"
-            onsubmit="return confirm('{% trans "Kustuta foto?" %}')">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger btn-sm">✕</button>
-          </form>
-          {% endif %}
-        </div>
+  <!-- Galleries -->
+  {% if galleries %}
+  {% for gallery in galleries %}
+  <div class="gallery-block">
+    <div class="gallery-block__header">
+      <div>
+        <p class="gallery-block__user">{{ gallery.user.get_full_name|default:gallery.user.username }}</p>
+        <p class="gallery-block__date">{{ gallery.uploaded_at|date:"d.m.Y H:i" }} · {{ gallery.photos.count }} {% if lang == "en" %}photo(s){% else %}fotot{% endif %}</p>
       </div>
+      {% if gallery.user == request.user %}
+      <form method="post" action="{% url 'delete_gallery' gallery.pk %}" onsubmit="return confirm('{% if lang == "en" %}Delete entire gallery?{% else %}Kustuta kogu galerii?{% endif %}')">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm">{% if lang == "en" %}Delete all{% else %}Kustuta{% endif %}</button>
+      </form>
+      {% endif %}
     </div>
-    {% endfor %}
+
+    {% if gallery.caption %}
+    <p class="gallery-block__caption">{{ gallery.caption }}</p>
+    {% endif %}
+
+    <div class="gallery-scroll">
+      {% for photo in gallery.photos.all %}
+      <div class="gallery-thumb">
+        <a href="{{ photo.image.url }}" target="_blank">
+          <img src="{{ photo.image.url }}" alt="" loading="lazy" />
+        </a>
+        {% if gallery.user == request.user %}
+        <form method="post" action="{% url 'delete_photo' photo.pk %}" onsubmit="return confirm('?')">
+          {% csrf_token %}
+          <button type="submit" class="gallery-thumb__del" title="{% if lang == 'en' %}Delete{% else %}Kustuta{% endif %}">✕</button>
+        </form>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
   </div>
+  {% endfor %}
+
   {% else %}
   <div class="card" style="text-align:center;padding:3rem">
     <p style="font-size:2rem;margin-bottom:.75rem">◫</p>
-    <p class="text-serif" style="font-size:1.2rem;color:var(--grey-lt)">{% trans "Galerii ootab esimest fotot." %}</p>
+    <p class="text-serif" style="font-size:1.2rem;color:var(--grey-lt)">
+      {% if lang == "en" %}The gallery is waiting for its first photo.{% else %}Galerii ootab esimest fotot.{% endif %}
+    </p>
   </div>
   {% endif %}
 
@@ -79,30 +91,29 @@
 
 {% block extra_js %}
 <script>
-  const input = document.getElementById('id_image');
-  const area  = document.getElementById('upload-area');
-  const icon  = document.getElementById('upload-icon');
-  const text  = document.getElementById('upload-text');
+  const input  = document.getElementById('id_images');
+  const area   = document.getElementById('upload-area');
+  const icon   = document.getElementById('upload-icon');
+  const text   = document.getElementById('upload-text');
 
+  area.addEventListener('click', () => input.click());
   input.addEventListener('change', () => {
-    if (input.files[0]) {
+    if (input.files.length) {
       icon.textContent = '✓';
-      text.textContent = input.files[0].name;
+      text.textContent = input.files.length === 1
+        ? input.files[0].name
+        : `${input.files.length} {% if lang == "en" %}files selected{% else %}faili valitud{% endif %}`;
       area.style.borderColor = 'var(--gold)';
     }
   });
-
-  // drag & drop
   area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('dragover'); });
   area.addEventListener('dragleave', () => area.classList.remove('dragover'));
   area.addEventListener('drop', e => {
     e.preventDefault(); area.classList.remove('dragover');
-    if (e.dataTransfer.files[0]) {
-      const dt = new DataTransfer();
-      dt.items.add(e.dataTransfer.files[0]);
-      input.files = dt.files;
-      input.dispatchEvent(new Event('change'));
-    }
+    const dt = new DataTransfer();
+    [...e.dataTransfer.files].forEach(f => dt.items.add(f));
+    input.files = dt.files;
+    input.dispatchEvent(new Event('change'));
   });
 </script>
 {% endblock %}
