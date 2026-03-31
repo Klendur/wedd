@@ -78,8 +78,14 @@ class PhotoGallery(models.Model):
 
 class Photo(models.Model):
     gallery = models.ForeignKey(PhotoGallery, on_delete=models.CASCADE, related_name='photos')
-    image = models.ImageField(upload_to='photos/')
+    image = models.FileField(upload_to='photos/')  # allow videos too
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['uploaded_at']
+
+    def is_video(self):
+        return self.image.name.lower().endswith(('.mp4', '.mov', '.webm'))
+
+    def is_image(self):
+        return self.image.name.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))

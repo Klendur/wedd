@@ -19,5 +19,6 @@ urlpatterns = [
     path('fotod/upload/', views.photos_upload, name='photos_upload'),
     path('fotod/kustuta-galerii/<int:gallery_id>/', views.delete_gallery, name='delete_gallery'),
     path('fotod/kustuta/<int:photo_id>/', views.delete_photo, name='delete_photo'),
+    path('gallery/<int:gallery_id>/download/', views.download_gallery, name='download_gallery'),
     path('mangud/', views.games, name='games'),
 ]

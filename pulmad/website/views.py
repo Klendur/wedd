@@ -138,18 +138,42 @@ def photos(request):
     return render(request, 'website/photos.html', {'galleries': galleries})
 
 
+from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import PhotoGallery, Photo
+
+MAX_FILE_SIZE = 100 * 1024 * 1024
+
 @login_required
 def photos_upload(request):
-    from .models import PhotoGallery, Photo
     if request.method == 'POST':
         files = request.FILES.getlist('images')
         caption = request.POST.get('caption', '')
-        if files:
-            gallery = PhotoGallery.objects.create(user=request.user, caption=caption)
-            for f in files:
-                Photo.objects.create(gallery=gallery, image=f)
-            messages.success(request, 'Fotod üles laaditud! / Photos uploaded!')
-    return redirect('photos')
+
+        if not files:
+            messages.error(request, "No files selected.")
+            return redirect('photos')
+
+        # Validate file sizes
+        for f in files:
+            if f.size > MAX_FILE_SIZE:
+                messages.error(request, f"{f.name} is too large (max 50MB)")
+                return redirect('photos')
+
+        # Create gallery
+        gallery = PhotoGallery.objects.create(user=request.user, caption=caption)
+
+        # Save files as Photos
+        for f in files:
+            Photo.objects.create(gallery=gallery, image=f)
+
+        messages.success(request, "Files uploaded successfully!")
+        return redirect('photos')
+
+    # GET request — show galleries
+    galleries = PhotoGallery.objects.prefetch_related('photos').all()
+    return render(request, 'website/photos.html', {'galleries': galleries})
 
 
 @login_required
@@ -173,6 +197,40 @@ def delete_photo(request, photo_id):
         messages.success(request, 'Foto kustutatud. / Photo deleted.')
     return redirect('photos')
 
+
+
+import io
+import zipfile
+from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
+from .models import PhotoGallery, Photo
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def download_gallery(request, gallery_id):
+    gallery = get_object_or_404(PhotoGallery, pk=gallery_id)
+
+    # Check if user has permission (optional, allow everyone to download or only owner)
+    # if gallery.user != request.user:
+    #     raise Http404("You do not have permission to download this gallery.")
+
+    photos = gallery.photos.all()
+    if not photos.exists():
+        raise Http404("No files to download in this gallery.")
+
+    # Create in-memory ZIP
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
+        for photo in photos:
+            if photo.image:
+                # filename in ZIP: original file name
+                filename = photo.image.name.split('/')[-1]
+                zip_file.writestr(filename, photo.image.read())
+
+    zip_buffer.seek(0)
+    response = HttpResponse(zip_buffer, content_type='application/zip')
+    response['Content-Disposition'] = f'attachment; filename=gallery_{gallery.id}.zip'
+    return response
 
 @login_required
 def games(request):

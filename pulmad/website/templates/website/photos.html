@@ -12,17 +12,17 @@
 
   <!-- Upload -->
   <div class="card">
-    <h2 class="card__title">{% if lang == "en" %}Upload photos{% else %}Laadi fotod üles{% endif %}</h2>
+    <h2 class="card__title">{% if lang == "en" %}Upload photos/videos{% else %}Laadi üles fotod/vides{% endif %}</h2>
     <hr class="divider">
     <form method="post" action="{% url 'photos_upload' %}" enctype="multipart/form-data" id="upload-form">
       {% csrf_token %}
       <div class="upload-area" id="upload-area">
-        <input type="file" name="images" id="id_images" accept="image/*" multiple />
+        <input type="file" name="images" id="id_images" accept="image/*,video/*" multiple />
         <div class="upload-area__icon" id="upload-icon">📷</div>
         <p class="upload-area__text" id="upload-text">
-          {% if lang == "en" %}Tap to choose photos (multiple allowed){% else %}Vajuta fotode valimiseks (saad valida mitu){% endif %}
+          {% if lang == "en" %}Tap to choose files (multiple allowed){% else %}Vajuta failide valimiseks (saad valida mitu){% endif %}
         </p>
-        <p class="text-muted text-sm mt-1">JPG · PNG · WEBP</p>
+        <p class="text-muted text-sm mt-1">JPG · PNG · WEBP · MP4 · MOV · WEBM</p>
       </div>
 
       <div class="form-group">
@@ -40,80 +40,229 @@
 
   <!-- Galleries -->
   {% if galleries %}
-  {% for gallery in galleries %}
-  <div class="gallery-block">
-    <div class="gallery-block__header">
-      <div>
-        <p class="gallery-block__user">{{ gallery.user.get_full_name|default:gallery.user.username }}</p>
-        <p class="gallery-block__date">{{ gallery.uploaded_at|date:"d.m.Y H:i" }} · {{ gallery.photos.count }} {% if lang == "en" %}photo(s){% else %}fotot{% endif %}</p>
+    {% for gallery in galleries %}
+    <div class="gallery-block">
+      <div class="gallery-block__header" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <p class="gallery-block__user">{{ gallery.user.get_full_name|default:gallery.user.username }}</p>
+          <p class="gallery-block__date">{{ gallery.uploaded_at|date:"d.m.Y H:i" }} · {{ gallery.photos.count }} {% if lang == "en" %}item(s){% else %}faili{% endif %}</p>
+        </div>
+
+        <div class="gallery-actions" style="display:flex; gap:0.5rem; align-items:center;">
+          {% if gallery.user == request.user %}
+          <form method="post" action="{% url 'delete_gallery' gallery.pk %}" onsubmit="return confirm('{% if lang == "en" %}Delete entire gallery?{% else %}Kustuta kogu galerii?{% endif %}')" style="margin:0;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm">{% if lang == "en" %}Delete all{% else %}Kustuta{% endif %}</button>
+          </form>
+          {% endif %}
+          
+          <a href="{% url 'download_gallery' gallery.pk %}" class="btn btn-gold btn-sm">
+            {% if lang == "en" %}Download All{% else %}Laadi alla{% endif %}
+          </a>
+        </div>
       </div>
-      {% if gallery.user == request.user %}
-      <form method="post" action="{% url 'delete_gallery' gallery.pk %}" onsubmit="return confirm('{% if lang == "en" %}Delete entire gallery?{% else %}Kustuta kogu galerii?{% endif %}')">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger btn-sm">{% if lang == "en" %}Delete all{% else %}Kustuta{% endif %}</button>
-      </form>
+
+      {% if gallery.caption %}
+      <p class="gallery-block__caption">{{ gallery.caption }}</p>
       {% endif %}
-    </div>
 
-    {% if gallery.caption %}
-    <p class="gallery-block__caption">{{ gallery.caption }}</p>
-    {% endif %}
+      <div class="gallery-scroll">
+        {% for photo in gallery.photos.all %}
+        <div class="gallery-thumb">
+          <a href="{{ photo.image.url }}" class="media-link" data-gallery-index="{{ forloop.counter0 }}">
+            {% if photo.is_image %}
+              <img src="{{ photo.image.url }}" alt="" loading="lazy" />
+            {% elif photo.is_video %}
+              <div class="video-placeholder">▶ Video</div>
+            {% endif %}
+          </a>
 
-    <div class="gallery-scroll">
-      {% for photo in gallery.photos.all %}
-      <div class="gallery-thumb">
-        <a href="{{ photo.image.url }}" target="_blank">
-          <img src="{{ photo.image.url }}" alt="" loading="lazy" />
-        </a>
-        {% if gallery.user == request.user %}
-        <form method="post" action="{% url 'delete_photo' photo.pk %}" onsubmit="return confirm('?')">
-          {% csrf_token %}
-          <button type="submit" class="gallery-thumb__del" title="{% if lang == 'en' %}Delete{% else %}Kustuta{% endif %}">✕</button>
-        </form>
-        {% endif %}
+          <!-- Individual download for thumbnail -->
+          <a href="{{ photo.image.url }}" download class="btn btn-sm btn-outline" style="display:block;margin-top:0.5rem;text-align:center;">
+            {% if lang == "en" %}Download{% else %}Laadi alla{% endif %}
+          </a>
+
+          {% if gallery.user == request.user %}
+          <form method="post" action="{% url 'delete_photo' photo.pk %}" onsubmit="return confirm('{% if lang == "en" %}Delete?{% else %}Kustuta?{% endif %}')">
+            {% csrf_token %}
+            <button type="submit" class="gallery-thumb__del" title="{% if lang == 'en' %}Delete{% else %}Kustuta{% endif %}">✕</button>
+          </form>
+          {% endif %}
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
-  </div>
-  {% endfor %}
-
+    {% endfor %}
   {% else %}
-  <div class="card" style="text-align:center;padding:3rem">
-    <p style="font-size:2rem;margin-bottom:.75rem">◫</p>
-    <p class="text-serif" style="font-size:1.2rem;color:var(--grey-lt)">
-      {% if lang == "en" %}The gallery is waiting for its first photo.{% else %}Galerii ootab esimest fotot.{% endif %}
-    </p>
-  </div>
+    <div class="card" style="text-align:center;padding:3rem">
+      <p style="font-size:2rem;margin-bottom:.75rem">◫</p>
+      <p class="text-serif" style="font-size:1.2rem;color:var(--grey-lt)">
+        {% if lang == "en" %}The gallery is waiting for its first file.{% else %}Galerii ootab esimest faili.{% endif %}
+      </p>
+    </div>
   {% endif %}
-
 </div>
+
+<!-- Lightbox overlay -->
+<div id="lightbox" class="lightbox" style="display:none;">
+  <span id="lightbox-close" class="lightbox-close">×</span>
+  <span id="lightbox-prev" class="lightbox-nav">❮</span>
+  <span id="lightbox-next" class="lightbox-nav">❯</span>
+  <a id="lightbox-download" class="btn btn-sm btn-outline" style="position:absolute;bottom:1rem;right:1rem;" download>
+    {% if lang == "en" %}Download{% else %}Laadi alla{% endif %}
+  </a>
+  <img id="lightbox-img" class="lightbox-content"/>
+  <video id="lightbox-video" class="lightbox-content" controls></video>
+</div>
+
+<style>
+.lightbox {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.lightbox-content {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  padding: 0 1rem;
+  transform: translateY(-50%);
+}
+
+#lightbox-prev { left: 0; }
+#lightbox-next { right: 0; }
+
+.video-placeholder {
+  width: 150px;
+  height: 100px;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-  const input  = document.getElementById('id_images');
-  const area   = document.getElementById('upload-area');
-  const icon   = document.getElementById('upload-icon');
-  const text   = document.getElementById('upload-text');
+const input = document.getElementById('id_images');
+const area = document.getElementById('upload-area');
+const icon = document.getElementById('upload-icon');
+const text = document.getElementById('upload-text');
 
-  area.addEventListener('click', () => input.click());
-  input.addEventListener('change', () => {
-    if (input.files.length) {
-      icon.textContent = '✓';
-      text.textContent = input.files.length === 1
-        ? input.files[0].name
-        : `${input.files.length} {% if lang == "en" %}files selected{% else %}faili valitud{% endif %}`;
-      area.style.borderColor = 'var(--gold)';
-    }
+// Upload area handlers
+area.addEventListener('click', () => input.click());
+input.addEventListener('change', () => {
+  if (input.files.length) {
+    icon.textContent = '✓';
+    text.textContent = input.files.length === 1
+      ? input.files[0].name
+      : `${input.files.length} {% if lang == "en" %}files selected{% else %}faili valitud{% endif %}`;
+    area.style.borderColor = 'var(--gold)';
+  }
+});
+area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('dragover'); });
+area.addEventListener('dragleave', () => area.classList.remove('dragover'));
+area.addEventListener('drop', e => {
+  e.preventDefault(); area.classList.remove('dragover');
+  const dt = new DataTransfer();
+  [...e.dataTransfer.files].forEach(f => dt.items.add(f));
+  input.files = dt.files;
+  input.dispatchEvent(new Event('change'));
+});
+
+// Lightbox modal
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxVideo = document.getElementById('lightbox-video');
+const closeBtn = document.getElementById('lightbox-close');
+const prevBtn = document.getElementById('lightbox-prev');
+const nextBtn = document.getElementById('lightbox-next');
+const downloadBtn = document.getElementById('lightbox-download');
+
+const galleryMedia = Array.from(document.querySelectorAll('.media-link'));
+let currentIndex = 0;
+
+function showLightbox(index) {
+  const link = galleryMedia[index];
+  const href = link.getAttribute('href');
+  currentIndex = index;
+
+  if(link.querySelector('.video-placeholder')) {
+    lightboxVideo.src = href;
+    lightboxVideo.style.display = 'block';
+    lightboxImg.style.display = 'none';
+  } else {
+    lightboxImg.src = href;
+    lightboxImg.style.display = 'block';
+    lightboxVideo.style.display = 'none';
+  }
+  lightbox.style.display = 'flex';
+
+  // Individual download
+  downloadBtn.href = href;
+  downloadBtn.download = href.split('/').pop();
+}
+
+galleryMedia.forEach((link, idx) => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    showLightbox(idx);
   });
-  area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('dragover'); });
-  area.addEventListener('dragleave', () => area.classList.remove('dragover'));
-  area.addEventListener('drop', e => {
-    e.preventDefault(); area.classList.remove('dragover');
-    const dt = new DataTransfer();
-    [...e.dataTransfer.files].forEach(f => dt.items.add(f));
-    input.files = dt.files;
-    input.dispatchEvent(new Event('change'));
-  });
+});
+
+// Navigation
+closeBtn.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+  lightboxVideo.pause();
+});
+
+prevBtn.addEventListener('click', () => {
+  showLightbox((currentIndex - 1 + galleryMedia.length) % galleryMedia.length);
+});
+
+nextBtn.addEventListener('click', () => {
+  showLightbox((currentIndex + 1) % galleryMedia.length);
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if(lightbox.style.display === 'flex') {
+    if(e.key === 'ArrowLeft') prevBtn.click();
+    if(e.key === 'ArrowRight') nextBtn.click();
+    if(e.key === 'Escape') closeBtn.click();
+  }
+});
 </script>
 {% endblock %}
