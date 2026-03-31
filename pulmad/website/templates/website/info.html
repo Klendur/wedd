@@ -1,0 +1,121 @@
+{% extends "website/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Info & Päevakava" %} — Eliise & Klen{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <p class="page-header__eyebrow">{% trans "22. august 2025" %}</p>
+  <h1 class="page-header__title">{% trans "Info & Päevakava" %}</h1>
+  <p class="page-header__subtitle">{% trans "Kõik, mida pead teadma pulmapäevaks." %}</p>
+</div>
+
+<div class="container">
+
+  <!-- Key info -->
+  <div class="card">
+    <h2 class="card__title">{% trans "Oluline info" %}</h2>
+    <hr class="divider">
+    <div style="display:grid;gap:1rem">
+
+      <div style="display:flex;gap:1rem;align-items:flex-start">
+        <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">📍</span>
+        <div>
+          <p class="form-label" style="margin-bottom:.2rem">{% trans "Asukoht" %}</p>
+          <p>{% trans "Lisatakse hiljem" %}</p>
+          <p class="text-muted text-sm">{% trans "Koordinaadid ja kaart tulevad peagi" %}</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;align-items:flex-start">
+        <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">👗</span>
+        <div>
+          <p class="form-label" style="margin-bottom:.2rem">{% trans "Riietuskood" %}</p>
+          <p>{% trans "Pidulik / semi-formaalne" %}</p>
+          <p class="text-muted text-sm">{% trans "Arvestage, et osa ajast veedame väljas." %}</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;align-items:flex-start">
+        <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">🎁</span>
+        <div>
+          <p class="form-label" style="margin-bottom:.2rem">{% trans "Kingid" %}</p>
+          <p>{% trans "Eelistame rahalisi kinkeid" %}</p>
+          <p class="text-muted text-sm">{% trans "Kontoanumber: EE000000000000000000" %}</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;align-items:flex-start">
+        <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">📸</span>
+        <div>
+          <p class="form-label" style="margin-bottom:.2rem">{% trans "Fotod" %}</p>
+          <p>{% trans "Laadige fotod üles sellel saidil" %}</p>
+          <p class="text-muted text-sm">{% trans "Profifotograaf kohal kuni kella 22:00." %}</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;align-items:flex-start">
+        <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">📞</span>
+        <div>
+          <p class="form-label" style="margin-bottom:.2rem">{% trans "Kontakt" %}</p>
+          <p>{% trans "Lisatakse hiljem" %}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Timeline -->
+  <h2 style="font-family:var(--ff-serif);font-size:1.5rem;font-weight:300;margin-bottom:1.5rem">
+    {% trans "Päevakava" %}
+  </h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <p class="timeline-time">15:00</p>
+      <p class="timeline-title">{% trans "Külaliste saabumine" %}</p>
+      <p class="timeline-desc">{% trans "Vastuvõtt toimub välisterrassil. Tervitusdrink ootab teid kohe uksel." %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">16:00</p>
+      <p class="timeline-title">{% trans "Laulatustseremoonia" %}</p>
+      <p class="timeline-desc">{% trans "Pidulik tseremoonia aias. Palume olla kohal 15 minutit varem." %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">17:00</p>
+      <p class="timeline-title">{% trans "Vastuvõtt & eelroad" %}</p>
+      <p class="timeline-desc">{% trans "Prosecco, siider ja kerged suupisted. Fotosessioon paariga." %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">18:30</p>
+      <p class="timeline-title">{% trans "Piduõhtusöök" %}</p>
+      <p class="timeline-desc">{% trans "Istumine laudade taha, kõned ja tervitused. Täismenüü serveeritakse." %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">20:00</p>
+      <p class="timeline-title">{% trans "Tantsupõrand avaneb" %}</p>
+      <p class="timeline-desc">{% trans "DJ ja elav muusika. Esimene tants." %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">22:00</p>
+      <p class="timeline-title">{% trans "Pulmakook" %}</p>
+      <p class="timeline-desc">{% trans "Koogi lõikamine ja desserdilaud." %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">00:00</p>
+      <p class="timeline-title">{% trans "Pidu jätkub" %}</p>
+      <p class="timeline-desc">{% trans "Tants ja meelelahutus kuni varahommikuni." %}</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="card" style="text-align:center;padding:2rem">
+    <p class="text-serif" style="font-size:1.1rem;font-style:italic;color:var(--grey-lt)">
+      {% trans "Küsimuste korral kirjuta meile — oleme õnnelikud, et olete meiega!" %}
+    </p>
+  </div>
+
+</div>
+{% endblock %}

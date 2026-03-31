@@ -1,0 +1,96 @@
+{% extends "website/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Foorum" %} — Eliise & Klen{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <p class="page-header__eyebrow">{% trans "Vestlus" %}</p>
+  <h1 class="page-header__title">{% trans "Foorum" %}</h1>
+  <p class="page-header__subtitle">{% trans "Jaga mõtteid, küsi küsimusi." %}</p>
+</div>
+
+<div class="container">
+
+  <!-- New post form -->
+  <div class="card">
+    <h2 class="card__title">{% trans "Uus postitus" %}</h2>
+    <hr class="divider">
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label class="form-label">{{ form.title.label }}</label>
+        <input type="text" name="title" class="form-control"
+          placeholder="{% trans 'Postitus pealkiri...' %}"
+          value="{{ form.title.value|default:'' }}" />
+        {% if form.title.errors %}<p class="form-error">{{ form.title.errors.0 }}</p>{% endif %}
+      </div>
+      <div class="form-group">
+        <label class="form-label">{{ form.content.label }}</label>
+        <textarea name="content" class="form-control" rows="4"
+          placeholder="{% trans 'Kirjuta siia...' %}">{{ form.content.value|default:'' }}</textarea>
+        {% if form.content.errors %}<p class="form-error">{{ form.content.errors.0 }}</p>{% endif %}
+      </div>
+      <button type="submit" class="btn btn-gold">{% trans "Postita" %}</button>
+    </form>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Posts -->
+  {% if posts %}
+    {% for post in posts %}
+    <div class="forum-post">
+      <div class="forum-post__header">
+        <div class="flex-between">
+          <h3 class="forum-post__title">{{ post.title }}</h3>
+          {% if post.user == request.user %}
+          <form method="post" action="{% url 'forum_delete_post' post.pk %}"
+            onsubmit="return confirm('{% trans "Kustuta postitus?" %}')">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm">{% trans "Kustuta" %}</button>
+          </form>
+          {% endif %}
+        </div>
+        <p class="forum-post__meta">
+          {{ post.user.get_full_name|default:post.user.username }} ·
+          {{ post.created_at|date:"d.m.Y H:i" }}
+          {% if post.comments.count %}
+          · <span class="badge badge-grey">{{ post.comments.count }} {% trans "komm." %}</span>
+          {% endif %}
+        </p>
+      </div>
+      <div class="forum-post__body">{{ post.content|linebreaksbr }}</div>
+
+      <!-- Comments -->
+      <div class="comments">
+        {% for comment in post.comments.all %}
+        <div class="comment">
+          <p class="comment__author">{{ comment.user.get_full_name|default:comment.user.username }} · {{ comment.created_at|date:"d.m H:i" }}</p>
+          {{ comment.content|linebreaksbr }}
+        </div>
+        {% endfor %}
+        <div class="comment-form">
+          <form method="post" action="{% url 'forum_comment' post.pk %}">
+            {% csrf_token %}
+            <div style="display:flex;gap:.6rem;align-items:flex-end">
+              <textarea name="content" class="form-control" rows="2"
+                placeholder="{% trans 'Lisa kommentaar...' %}"
+                style="flex:1"></textarea>
+              <button type="submit" class="btn btn-outline btn-sm" style="white-space:nowrap">
+                {% trans "Saada" %}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="card" style="text-align:center;padding:3rem">
+      <p style="font-size:2rem;margin-bottom:.75rem">◎</p>
+      <p class="text-serif" style="font-size:1.2rem;color:var(--grey-lt)">{% trans "Esimene postitus ootab sinu käest." %}</p>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

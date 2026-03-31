@@ -1,0 +1,471 @@
+# English translations for Eliise & Klen wedding website
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+
+msgid "Estonian"
+msgstr "Estonian"
+
+msgid "English"
+msgstr "English"
+
+msgid "Avaleht"
+msgstr "Home"
+
+msgid "Majutus"
+msgstr "Accommodation"
+
+msgid "Toit & Jook"
+msgstr "Food & Drinks"
+
+msgid "Info & Päevakava"
+msgstr "Info & Schedule"
+
+msgid "Transport"
+msgstr "Transport"
+
+msgid "Foorum"
+msgstr "Forum"
+
+msgid "Fotod"
+msgstr "Photos"
+
+msgid "Logi välja"
+msgstr "Log out"
+
+msgid "Sisene"
+msgstr "Log in"
+
+msgid "Kasutajanimi"
+msgstr "Username"
+
+msgid "Parool"
+msgstr "Password"
+
+msgid "Vale kasutajanimi või parool."
+msgstr "Incorrect username or password."
+
+msgid "Ligipääs ainult kutse saanud külalistele."
+msgstr "Access for invited guests only."
+
+msgid "22. august 2025"
+msgstr "22 August 2025"
+
+msgid "Eesti"
+msgstr "Estonia"
+
+msgid "Pulmaõhtu"
+msgstr "Wedding Evening"
+
+msgid "Öömajad"
+msgstr "Overnight Stay"
+
+msgid "Vali oma eelistus ja täida vorm allpool."
+msgstr "Choose your preference and fill in the form below."
+
+msgid "Peamaja"
+msgstr "Main House"
+
+msgid "Camping"
+msgstr "Camping"
+
+msgid "Eraldi majutus (+60€)"
+msgstr "Separate accommodation (+60€)"
+
+msgid "Ei jää ööseks"
+msgstr "Not staying overnight"
+
+msgid "Koht peamajas — sisaldub hinnas. Kohtade arv on piiratud."
+msgstr "Spot in the main house — included in price. Limited availability."
+
+msgid "Tooge kaasa telk või haagissuvilaga tulek — vaba väliala."
+msgstr "Bring a tent or camper — free outdoor area."
+
+msgid "Privaatne tuba lähiümbruses. Lisatasu 60€ inimese kohta."
+msgstr "Private room nearby. Extra charge of €60 per person."
+
+msgid "Lahkud samal õhtul — palun märgi transpordi lehel."
+msgstr "Leaving the same evening — please note on transport page."
+
+msgid "Salvestatud"
+msgstr "Saved"
+
+msgid "külalist"
+msgstr "guests"
+
+msgid "Täida eelistus"
+msgstr "Fill in preference"
+
+msgid "Saad hiljem muuta"
+msgstr "You can edit this later"
+
+msgid "Sinu nimi"
+msgstr "Your name"
+
+msgid "Majutuse valik"
+msgstr "Accommodation choice"
+
+msgid "Külaliste arv (sh sina)"
+msgstr "Number of guests (including yourself)"
+
+msgid "Lisainfo / märkused"
+msgstr "Additional info / notes"
+
+msgid "Eesnimi Perekonnanimi"
+msgstr "First name Last name"
+
+msgid "Valikuline..."
+msgstr "Optional..."
+
+msgid "Uuenda"
+msgstr "Update"
+
+msgid "Salvesta"
+msgstr "Save"
+
+msgid "Menüü"
+msgstr "Menu"
+
+msgid "Pulmapäeva roogade nimekiri"
+msgstr "Wedding day menu"
+
+msgid "Eelroad"
+msgstr "Starters"
+
+msgid "Liha- ja juustutaldrik"
+msgstr "Meat and cheese platter"
+
+msgid "Kodumaine sink, suitsujuust, marineeritud kurgid"
+msgstr "Local ham, smoked cheese, pickled cucumbers"
+
+msgid "Kalataldrik"
+msgstr "Fish platter"
+
+msgid "Suitsulõhe, heeringas, kapparid"
+msgstr "Smoked salmon, herring, capers"
+
+msgid "Köögiviljad & dipikastmed"
+msgstr "Vegetables & dips"
+
+msgid "Pearoad"
+msgstr "Main courses"
+
+msgid "Grillitud seakaela praad"
+msgstr "Grilled pork neck steak"
+
+msgid "Küüslaugu-ürdivõi, grillitud köögiviljad"
+msgstr "Garlic herb butter, grilled vegetables"
+
+msgid "Ahjukartul"
+msgstr "Baked potato"
+
+msgid "Hapukoor, sibul, tüümian"
+msgstr "Sour cream, onion, thyme"
+
+msgid "Värsked salatid"
+msgstr "Fresh salads"
+
+msgid "Hooajaline sega-salat, Caesari salat"
+msgstr "Seasonal mixed salad, Caesar salad"
+
+msgid "Taimetoidu valik"
+msgstr "Vegetarian option"
+
+msgid "Grillitud juurviljad, hummus, falafel"
+msgstr "Grilled root vegetables, hummus, falafel"
+
+msgid "Magustoit"
+msgstr "Dessert"
+
+msgid "Pulmakook"
+msgstr "Wedding cake"
+
+msgid "Vanillikreem, maasikad — lõikamine kell 22:00"
+msgstr "Vanilla cream, strawberries — cutting at 22:00"
+
+msgid "Desserdilaud"
+msgstr "Dessert table"
+
+msgid "Puuviljad, šokolaad, koogid"
+msgstr "Fruit, chocolate, cakes"
+
+msgid "Joogid"
+msgstr "Drinks"
+
+msgid "Vastuvõtt — prosecco & siider"
+msgstr "Reception — prosecco & cider"
+
+msgid "Vein (punane & valge)"
+msgstr "Wine (red & white)"
+
+msgid "Õlu"
+msgstr "Beer"
+
+msgid "Alkoholivabad joogid"
+msgstr "Non-alcoholic drinks"
+
+msgid "Limonaad, mahl, vesi, kohv, tee"
+msgstr "Lemonade, juice, water, coffee, tea"
+
+msgid "Kokteilid"
+msgstr "Cocktails"
+
+msgid "Valik baarmenult alates kell 20:00"
+msgstr "Selection from bartender from 20:00"
+
+msgid "Kõik joogid ja toit sisalduvad piletis."
+msgstr "All food and drinks are included in the ticket."
+
+msgid "Dieedipiirangute korral palun anna eelnevalt teada."
+msgstr "Please let us know in advance about any dietary restrictions."
+
+msgid "Kõik, mida pead teadma pulmapäevaks."
+msgstr "Everything you need to know for the wedding day."
+
+msgid "Oluline info"
+msgstr "Key information"
+
+msgid "Asukoht"
+msgstr "Location"
+
+msgid "Lisatakse hiljem"
+msgstr "To be added"
+
+msgid "Koordinaadid ja kaart tulevad peagi"
+msgstr "Coordinates and map coming soon"
+
+msgid "Riietuskood"
+msgstr "Dress code"
+
+msgid "Pidulik / semi-formaalne"
+msgstr "Formal / semi-formal"
+
+msgid "Arvestage, et osa ajast veedame väljas."
+msgstr "Please note that part of the time will be spent outdoors."
+
+msgid "Kingid"
+msgstr "Gifts"
+
+msgid "Eelistame rahalisi kinkeid"
+msgstr "We prefer monetary gifts"
+
+msgid "Kontoanumber: EE000000000000000000"
+msgstr "Account number: EE000000000000000000"
+
+msgid "Laadige fotod üles sellel saidil"
+msgstr "Upload photos on this website"
+
+msgid "Profifotograaf kohal kuni kella 22:00."
+msgstr "Professional photographer present until 22:00."
+
+msgid "Kontakt"
+msgstr "Contact"
+
+msgid "Päevakava"
+msgstr "Schedule"
+
+msgid "Külaliste saabumine"
+msgstr "Guests arrive"
+
+msgid "Vastuvõtt toimub välisterrassil. Tervitusdrink ootab teid kohe uksel."
+msgstr "Reception takes place on the outdoor terrace. Welcome drink awaits at the door."
+
+msgid "Laulatustseremoonia"
+msgstr "Wedding ceremony"
+
+msgid "Pidulik tseremoonia aias. Palume olla kohal 15 minutit varem."
+msgstr "Ceremony in the garden. Please arrive 15 minutes early."
+
+msgid "Vastuvõtt & eelroad"
+msgstr "Reception & starters"
+
+msgid "Prosecco, siider ja kerged suupisted. Fotosessioon paariga."
+msgstr "Prosecco, cider and light snacks. Photo session with the couple."
+
+msgid "Piduõhtusöök"
+msgstr "Wedding dinner"
+
+msgid "Istumine laudade taha, kõned ja tervitused. Täismenüü serveeritakse."
+msgstr "Seating, speeches and toasts. Full menu served."
+
+msgid "Tantsupõrand avaneb"
+msgstr "Dance floor opens"
+
+msgid "DJ ja elav muusika. Esimene tants."
+msgstr "DJ and live music. First dance."
+
+msgid "Koogi lõikamine ja desserdilaud."
+msgstr "Cake cutting and dessert table."
+
+msgid "Pidu jätkub"
+msgstr "Party continues"
+
+msgid "Tants ja meelelahutus kuni varahommikuni."
+msgstr "Dancing and entertainment until the early hours."
+
+msgid "Küsimuste korral kirjuta meile — oleme õnnelikud, et olete meiega!"
+msgstr "If you have any questions, write to us — we're so happy you'll be with us!"
+
+msgid "Liiklemine"
+msgstr "Getting there"
+
+msgid "Anna teada, kuidas kohale jõuad."
+msgstr "Let us know how you'll be arriving."
+
+msgid "Minu transpordiinfo"
+msgstr "My transport info"
+
+msgid "Kuidas saabud?"
+msgstr "How are you arriving?"
+
+msgid "Vabu kohti autos"
+msgstr "Free seats in car"
+
+msgid "Kust tuled?"
+msgstr "Where are you coming from?"
+
+msgid "Lisainfo"
+msgstr "Additional info"
+
+msgid "nt Tallinn, Tartu..."
+msgstr "e.g. Tallinn, Tartu..."
+
+msgid "Kui sõidad oma autoga, märgi mitu vaba kohta on."
+msgstr "If driving your own car, indicate how many free seats you have."
+
+msgid "Oma autoga"
+msgstr "Own car"
+
+msgid "Bussiga"
+msgstr "Bus"
+
+msgid "Takso/Bolt"
+msgstr "Taxi/Bolt"
+
+msgid "Sõidan kaasa"
+msgstr "Getting a ride"
+
+msgid "Muu"
+msgstr "Other"
+
+msgid "vaba kohta"
+msgstr "free seats"
+
+msgid "Autod vabade kohtadega"
+msgstr "Cars with free seats"
+
+msgid "Võta ühendust, et sõida koos!"
+msgstr "Get in touch to share a ride!"
+
+msgid "Tuleb"
+msgstr "Coming from"
+
+msgid "kohta"
+msgstr "seats"
+
+msgid "Transpordiinfo salvestatud!"
+msgstr "Transport info saved!"
+
+msgid "Majutuseelistus salvestatud!"
+msgstr "Accommodation preference saved!"
+
+msgid "Vestlus"
+msgstr "Discussion"
+
+msgid "Jaga mõtteid, küsi küsimusi."
+msgstr "Share thoughts, ask questions."
+
+msgid "Uus postitus"
+msgstr "New post"
+
+msgid "Pealkiri"
+msgstr "Title"
+
+msgid "Sõnum"
+msgstr "Message"
+
+msgid "Postitus pealkiri..."
+msgstr "Post title..."
+
+msgid "Kirjuta siia..."
+msgstr "Write here..."
+
+msgid "Postita"
+msgstr "Post"
+
+msgid "Kustuta"
+msgstr "Delete"
+
+msgid "Kustuta postitus?"
+msgstr "Delete post?"
+
+msgid "komm."
+msgstr "comments"
+
+msgid "Lisa kommentaar..."
+msgstr "Add a comment..."
+
+msgid "Saada"
+msgstr "Send"
+
+msgid "Postitus lisatud!"
+msgstr "Post added!"
+
+msgid "Kommentaar lisatud!"
+msgstr "Comment added!"
+
+msgid "Postitus kustutatud."
+msgstr "Post deleted."
+
+msgid "Esimene postitus ootab sinu käest."
+msgstr "The first post is waiting for you."
+
+msgid "Galerii"
+msgstr "Gallery"
+
+msgid "Jaga oma mälestusi."
+msgstr "Share your memories."
+
+msgid "Laadi foto üles"
+msgstr "Upload a photo"
+
+msgid "Vajuta siia foto valimiseks"
+msgstr "Tap here to choose a photo"
+
+msgid "max 10 MB"
+msgstr "max 10 MB"
+
+msgid "Foto"
+msgstr "Photo"
+
+msgid "Pealdis (valikuline)"
+msgstr "Caption (optional)"
+
+msgid "Kirjelda fotot..."
+msgstr "Describe the photo..."
+
+msgid "Laadi üles"
+msgstr "Upload"
+
+msgid "fotot"
+msgstr "photos"
+
+msgid "Laadi alla"
+msgstr "Download"
+
+msgid "Kustuta foto?"
+msgstr "Delete photo?"
+
+msgid "Foto üles laaditud!"
+msgstr "Photo uploaded!"
+
+msgid "Foto kustutatud."
+msgstr "Photo deleted."
+
+msgid "Galerii ootab esimest fotot."
+msgstr "The gallery is waiting for its first photo."
+
+msgid "Kommentaar"
+msgstr "Comment"

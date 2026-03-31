@@ -1,0 +1,471 @@
+# Estonian translations for Eliise & Klen wedding website
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
+
+msgid "Estonian"
+msgstr "Eesti keel"
+
+msgid "English"
+msgstr "Inglise keel"
+
+msgid "Avaleht"
+msgstr "Avaleht"
+
+msgid "Majutus"
+msgstr "Majutus"
+
+msgid "Toit & Jook"
+msgstr "Toit & Jook"
+
+msgid "Info & Päevakava"
+msgstr "Info & Päevakava"
+
+msgid "Transport"
+msgstr "Transport"
+
+msgid "Foorum"
+msgstr "Foorum"
+
+msgid "Fotod"
+msgstr "Fotod"
+
+msgid "Logi välja"
+msgstr "Logi välja"
+
+msgid "Sisene"
+msgstr "Sisene"
+
+msgid "Kasutajanimi"
+msgstr "Kasutajanimi"
+
+msgid "Parool"
+msgstr "Parool"
+
+msgid "Vale kasutajanimi või parool."
+msgstr "Vale kasutajanimi või parool."
+
+msgid "Ligipääs ainult kutse saanud külalistele."
+msgstr "Ligipääs ainult kutse saanud külalistele."
+
+msgid "22. august 2025"
+msgstr "22. august 2025"
+
+msgid "Eesti"
+msgstr "Eesti"
+
+msgid "Pulmaõhtu"
+msgstr "Pulmaõhtu"
+
+msgid "Öömajad"
+msgstr "Öömajad"
+
+msgid "Vali oma eelistus ja täida vorm allpool."
+msgstr "Vali oma eelistus ja täida vorm allpool."
+
+msgid "Peamaja"
+msgstr "Peamaja"
+
+msgid "Camping"
+msgstr "Camping"
+
+msgid "Eraldi majutus (+60€)"
+msgstr "Eraldi majutus (+60€)"
+
+msgid "Ei jää ööseks"
+msgstr "Ei jää ööseks"
+
+msgid "Koht peamajas — sisaldub hinnas. Kohtade arv on piiratud."
+msgstr "Koht peamajas — sisaldub hinnas. Kohtade arv on piiratud."
+
+msgid "Tooge kaasa telk või haagissuvilaga tulek — vaba väliala."
+msgstr "Tooge kaasa telk või haagissuvilaga tulek — vaba väliala."
+
+msgid "Privaatne tuba lähiümbruses. Lisatasu 60€ inimese kohta."
+msgstr "Privaatne tuba lähiümbruses. Lisatasu 60€ inimese kohta."
+
+msgid "Lahkud samal õhtul — palun märgi transpordi lehel."
+msgstr "Lahkud samal õhtul — palun märgi transpordi lehel."
+
+msgid "Salvestatud"
+msgstr "Salvestatud"
+
+msgid "külalist"
+msgstr "külalist"
+
+msgid "Täida eelistus"
+msgstr "Täida eelistus"
+
+msgid "Saad hiljem muuta"
+msgstr "Saad hiljem muuta"
+
+msgid "Sinu nimi"
+msgstr "Sinu nimi"
+
+msgid "Majutuse valik"
+msgstr "Majutuse valik"
+
+msgid "Külaliste arv (sh sina)"
+msgstr "Külaliste arv (sh sina)"
+
+msgid "Lisainfo / märkused"
+msgstr "Lisainfo / märkused"
+
+msgid "Eesnimi Perekonnanimi"
+msgstr "Eesnimi Perekonnanimi"
+
+msgid "Valikuline..."
+msgstr "Valikuline..."
+
+msgid "Uuenda"
+msgstr "Uuenda"
+
+msgid "Salvesta"
+msgstr "Salvesta"
+
+msgid "Menüü"
+msgstr "Menüü"
+
+msgid "Pulmapäeva roogade nimekiri"
+msgstr "Pulmapäeva roogade nimekiri"
+
+msgid "Eelroad"
+msgstr "Eelroad"
+
+msgid "Liha- ja juustutaldrik"
+msgstr "Liha- ja juustutaldrik"
+
+msgid "Kodumaine sink, suitsujuust, marineeritud kurgid"
+msgstr "Kodumaine sink, suitsujuust, marineeritud kurgid"
+
+msgid "Kalataldrik"
+msgstr "Kalataldrik"
+
+msgid "Suitsulõhe, heeringas, kapparid"
+msgstr "Suitsulõhe, heeringas, kapparid"
+
+msgid "Köögiviljad & dipikastmed"
+msgstr "Köögiviljad & dipikastmed"
+
+msgid "Pearoad"
+msgstr "Pearoad"
+
+msgid "Grillitud seakaela praad"
+msgstr "Grillitud seakaela praad"
+
+msgid "Küüslaugu-ürdivõi, grillitud köögiviljad"
+msgstr "Küüslaugu-ürdivõi, grillitud köögiviljad"
+
+msgid "Ahjukartul"
+msgstr "Ahjukartul"
+
+msgid "Hapukoor, sibul, tüümian"
+msgstr "Hapukoor, sibul, tüümian"
+
+msgid "Värsked salatid"
+msgstr "Värsked salatid"
+
+msgid "Hooajaline sega-salat, Caesari salat"
+msgstr "Hooajaline sega-salat, Caesari salat"
+
+msgid "Taimetoidu valik"
+msgstr "Taimetoidu valik"
+
+msgid "Grillitud juurviljad, hummus, falafel"
+msgstr "Grillitud juurviljad, hummus, falafel"
+
+msgid "Magustoit"
+msgstr "Magustoit"
+
+msgid "Pulmakook"
+msgstr "Pulmakook"
+
+msgid "Vanillikreem, maasikad — lõikamine kell 22:00"
+msgstr "Vanillikreem, maasikad — lõikamine kell 22:00"
+
+msgid "Desserdilaud"
+msgstr "Desserdilaud"
+
+msgid "Puuviljad, šokolaad, koogid"
+msgstr "Puuviljad, šokolaad, koogid"
+
+msgid "Joogid"
+msgstr "Joogid"
+
+msgid "Vastuvõtt — prosecco & siider"
+msgstr "Vastuvõtt — prosecco & siider"
+
+msgid "Vein (punane & valge)"
+msgstr "Vein (punane & valge)"
+
+msgid "Õlu"
+msgstr "Õlu"
+
+msgid "Alkoholivabad joogid"
+msgstr "Alkoholivabad joogid"
+
+msgid "Limonaad, mahl, vesi, kohv, tee"
+msgstr "Limonaad, mahl, vesi, kohv, tee"
+
+msgid "Kokteilid"
+msgstr "Kokteilid"
+
+msgid "Valik baarmenult alates kell 20:00"
+msgstr "Valik baarmenult alates kell 20:00"
+
+msgid "Kõik joogid ja toit sisalduvad piletis."
+msgstr "Kõik joogid ja toit sisalduvad piletis."
+
+msgid "Dieedipiirangute korral palun anna eelnevalt teada."
+msgstr "Dieedipiirangute korral palun anna eelnevalt teada."
+
+msgid "Kõik, mida pead teadma pulmapäevaks."
+msgstr "Kõik, mida pead teadma pulmapäevaks."
+
+msgid "Oluline info"
+msgstr "Oluline info"
+
+msgid "Asukoht"
+msgstr "Asukoht"
+
+msgid "Lisatakse hiljem"
+msgstr "Lisatakse hiljem"
+
+msgid "Koordinaadid ja kaart tulevad peagi"
+msgstr "Koordinaadid ja kaart tulevad peagi"
+
+msgid "Riietuskood"
+msgstr "Riietuskood"
+
+msgid "Pidulik / semi-formaalne"
+msgstr "Pidulik / semi-formaalne"
+
+msgid "Arvestage, et osa ajast veedame väljas."
+msgstr "Arvestage, et osa ajast veedame väljas."
+
+msgid "Kingid"
+msgstr "Kingid"
+
+msgid "Eelistame rahalisi kinkeid"
+msgstr "Eelistame rahalisi kinkeid"
+
+msgid "Kontoanumber: EE000000000000000000"
+msgstr "Kontoanumber: EE000000000000000000"
+
+msgid "Laadige fotod üles sellel saidil"
+msgstr "Laadige fotod üles sellel saidil"
+
+msgid "Profifotograaf kohal kuni kella 22:00."
+msgstr "Profifotograaf kohal kuni kella 22:00."
+
+msgid "Kontakt"
+msgstr "Kontakt"
+
+msgid "Päevakava"
+msgstr "Päevakava"
+
+msgid "Külaliste saabumine"
+msgstr "Külaliste saabumine"
+
+msgid "Vastuvõtt toimub välisterrassil. Tervitusdrink ootab teid kohe uksel."
+msgstr "Vastuvõtt toimub välisterrassil. Tervitusdrink ootab teid kohe uksel."
+
+msgid "Laulatustseremoonia"
+msgstr "Laulatustseremoonia"
+
+msgid "Pidulik tseremoonia aias. Palume olla kohal 15 minutit varem."
+msgstr "Pidulik tseremoonia aias. Palume olla kohal 15 minutit varem."
+
+msgid "Vastuvõtt & eelroad"
+msgstr "Vastuvõtt & eelroad"
+
+msgid "Prosecco, siider ja kerged suupisted. Fotosessioon paariga."
+msgstr "Prosecco, siider ja kerged suupisted. Fotosessioon paariga."
+
+msgid "Piduõhtusöök"
+msgstr "Piduõhtusöök"
+
+msgid "Istumine laudade taha, kõned ja tervitused. Täismenüü serveeritakse."
+msgstr "Istumine laudade taha, kõned ja tervitused. Täismenüü serveeritakse."
+
+msgid "Tantsupõrand avaneb"
+msgstr "Tantsupõrand avaneb"
+
+msgid "DJ ja elav muusika. Esimene tants."
+msgstr "DJ ja elav muusika. Esimene tants."
+
+msgid "Koogi lõikamine ja desserdilaud."
+msgstr "Koogi lõikamine ja desserdilaud."
+
+msgid "Pidu jätkub"
+msgstr "Pidu jätkub"
+
+msgid "Tants ja meelelahutus kuni varahommikuni."
+msgstr "Tants ja meelelahutus kuni varahommikuni."
+
+msgid "Küsimuste korral kirjuta meile — oleme õnnelikud, et olete meiega!"
+msgstr "Küsimuste korral kirjuta meile — oleme õnnelikud, et olete meiega!"
+
+msgid "Liiklemine"
+msgstr "Liiklemine"
+
+msgid "Anna teada, kuidas kohale jõuad."
+msgstr "Anna teada, kuidas kohale jõuad."
+
+msgid "Minu transpordiinfo"
+msgstr "Minu transpordiinfo"
+
+msgid "Kuidas saabud?"
+msgstr "Kuidas saabud?"
+
+msgid "Vabu kohti autos"
+msgstr "Vabu kohti autos"
+
+msgid "Kust tuled?"
+msgstr "Kust tuled?"
+
+msgid "Lisainfo"
+msgstr "Lisainfo"
+
+msgid "nt Tallinn, Tartu..."
+msgstr "nt Tallinn, Tartu..."
+
+msgid "Kui sõidad oma autoga, märgi mitu vaba kohta on."
+msgstr "Kui sõidad oma autoga, märgi mitu vaba kohta on."
+
+msgid "Oma autoga"
+msgstr "Oma autoga"
+
+msgid "Bussiga"
+msgstr "Bussiga"
+
+msgid "Takso/Bolt"
+msgstr "Takso/Bolt"
+
+msgid "Sõidan kaasa"
+msgstr "Sõidan kaasa"
+
+msgid "Muu"
+msgstr "Muu"
+
+msgid "vaba kohta"
+msgstr "vaba kohta"
+
+msgid "Autod vabade kohtadega"
+msgstr "Autod vabade kohtadega"
+
+msgid "Võta ühendust, et sõida koos!"
+msgstr "Võta ühendust, et sõida koos!"
+
+msgid "Tuleb"
+msgstr "Tuleb"
+
+msgid "kohta"
+msgstr "kohta"
+
+msgid "Transpordiinfo salvestatud!"
+msgstr "Transpordiinfo salvestatud!"
+
+msgid "Majutuseelistus salvestatud!"
+msgstr "Majutuseelistus salvestatud!"
+
+msgid "Vestlus"
+msgstr "Vestlus"
+
+msgid "Jaga mõtteid, küsi küsimusi."
+msgstr "Jaga mõtteid, küsi küsimusi."
+
+msgid "Uus postitus"
+msgstr "Uus postitus"
+
+msgid "Pealkiri"
+msgstr "Pealkiri"
+
+msgid "Sõnum"
+msgstr "Sõnum"
+
+msgid "Postitus pealkiri..."
+msgstr "Postitus pealkiri..."
+
+msgid "Kirjuta siia..."
+msgstr "Kirjuta siia..."
+
+msgid "Postita"
+msgstr "Postita"
+
+msgid "Kustuta"
+msgstr "Kustuta"
+
+msgid "Kustuta postitus?"
+msgstr "Kustuta postitus?"
+
+msgid "komm."
+msgstr "komm."
+
+msgid "Lisa kommentaar..."
+msgstr "Lisa kommentaar..."
+
+msgid "Saada"
+msgstr "Saada"
+
+msgid "Postitus lisatud!"
+msgstr "Postitus lisatud!"
+
+msgid "Kommentaar lisatud!"
+msgstr "Kommentaar lisatud!"
+
+msgid "Postitus kustutatud."
+msgstr "Postitus kustutatud."
+
+msgid "Esimene postitus ootab sinu käest."
+msgstr "Esimene postitus ootab sinu käest."
+
+msgid "Galerii"
+msgstr "Galerii"
+
+msgid "Jaga oma mälestusi."
+msgstr "Jaga oma mälestusi."
+
+msgid "Laadi foto üles"
+msgstr "Laadi foto üles"
+
+msgid "Vajuta siia foto valimiseks"
+msgstr "Vajuta siia foto valimiseks"
+
+msgid "max 10 MB"
+msgstr "max 10 MB"
+
+msgid "Foto"
+msgstr "Foto"
+
+msgid "Pealdis (valikuline)"
+msgstr "Pealdis (valikuline)"
+
+msgid "Kirjelda fotot..."
+msgstr "Kirjelda fotot..."
+
+msgid "Laadi üles"
+msgstr "Laadi üles"
+
+msgid "fotot"
+msgstr "fotot"
+
+msgid "Laadi alla"
+msgstr "Laadi alla"
+
+msgid "Kustuta foto?"
+msgstr "Kustuta foto?"
+
+msgid "Foto üles laaditud!"
+msgstr "Foto üles laaditud!"
+
+msgid "Foto kustutatud."
+msgstr "Foto kustutatud."
+
+msgid "Galerii ootab esimest fotot."
+msgstr "Galerii ootab esimest fotot."
+
+msgid "Kommentaar"
+msgstr "Kommentaar"

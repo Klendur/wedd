@@ -1,0 +1,41 @@
+{% extends "website/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Sisene" %} — Eliise & Klen{% endblock %}
+
+{% block content %}
+<div class="login-wrap">
+  <div class="login-box">
+    <div class="login-box__logo">
+      <h1>Eliise <span class="amp">&</span> Klen</h1>
+      <p>{% trans "22. august 2025" %}</p>
+    </div>
+
+    {% if messages %}
+    <ul class="messages" style="margin-bottom:1rem">
+      {% for m in messages %}
+      <li class="{{ m.tags }}">{{ m }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="card">
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="form-label">{% trans "Kasutajanimi" %}</label>
+          <input type="text" name="username" class="form-control" autofocus autocomplete="username" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">{% trans "Parool" %}</label>
+          <input type="password" name="password" class="form-control" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn btn-gold btn-full mt-2">{% trans "Sisene" %}</button>
+      </form>
+    </div>
+
+    <p class="text-center text-sm text-muted mt-3">
+      {% trans "Ligipääs ainult kutse saanud külalistele." %}
+    </p>
+  </div>
+</div>
+{% endblock %}

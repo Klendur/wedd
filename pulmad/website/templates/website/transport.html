@@ -1,0 +1,117 @@
+{% extends "website/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Transport" %} — Eliise & Klen{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <p class="page-header__eyebrow">{% trans "Liiklemine" %}</p>
+  <h1 class="page-header__title">{% trans "Transport" %}</h1>
+  <p class="page-header__subtitle">{% trans "Anna teada, kuidas kohale jõuad." %}</p>
+</div>
+
+<div class="container">
+
+  {% if submission %}
+  <div class="status-box">
+    <span class="status-box__icon">✓</span>
+    <div>
+      <p class="status-box__label">{% trans "Salvestatud" %}</p>
+      <p class="status-box__value">{{ submission.get_arrival_method_display }}{% if submission.free_seats > 0 %} · {{ submission.free_seats }} {% trans "vaba kohta" %}{% endif %}</p>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="card">
+    <h2 class="card__title">{% trans "Minu transpordiinfo" %}</h2>
+    <p class="card__meta">{% trans "Saad hiljem muuta" %}</p>
+    <hr class="divider">
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label class="form-label">{{ form.name.label }}</label>
+        <input type="text" name="name" class="form-control"
+          value="{{ form.name.value|default:'' }}"
+          placeholder="{% trans 'Eesnimi Perekonnanimi' %}" />
+        {% if form.name.errors %}<p class="form-error">{{ form.name.errors.0 }}</p>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.arrival_method.label }}</label>
+        <div class="choice-grid">
+          {% for value, label in form.arrival_method.field.choices %}
+          <div class="choice-card">
+            <input type="radio" name="arrival_method" id="am_{{ value }}" value="{{ value }}"
+              {% if form.arrival_method.value == value %}checked{% endif %} />
+            <label for="am_{{ value }}">
+              <span class="choice-card__icon">
+                {% if value == 'own_car' %}🚗
+                {% elif value == 'bus' %}🚌
+                {% elif value == 'taxi' %}🚕
+                {% elif value == 'with_someone' %}👥
+                {% else %}✈️{% endif %}
+              </span>
+              <span class="choice-card__text">
+                <span class="choice-card__name">{{ label }}</span>
+              </span>
+              <span class="choice-card__check"></span>
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+        {% if form.arrival_method.errors %}<p class="form-error">{{ form.arrival_method.errors.0 }}</p>{% endif %}
+      </div>
+
+      <div class="form-group" id="seats-group">
+        <label class="form-label" for="{{ form.free_seats.id_for_label }}">{{ form.free_seats.label }}</label>
+        <input type="number" name="free_seats" id="{{ form.free_seats.id_for_label }}"
+          class="form-control" min="0" max="10"
+          value="{{ form.free_seats.value|default:0 }}" />
+        <p class="form-hint">{% trans "Kui sõidad oma autoga, märgi mitu vaba kohta on." %}</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.coming_from.id_for_label }}">{{ form.coming_from.label }}</label>
+        <input type="text" name="coming_from" id="{{ form.coming_from.id_for_label }}"
+          class="form-control"
+          value="{{ form.coming_from.value|default:'' }}"
+          placeholder="{% trans 'nt Tallinn, Tartu...' %}" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
+        <textarea name="notes" id="{{ form.notes.id_for_label }}"
+          class="form-control" rows="2"
+          placeholder="{% trans 'Valikuline...' %}">{{ form.notes.value|default:'' }}</textarea>
+      </div>
+
+      <button type="submit" class="btn btn-gold btn-full">
+        {% if submission %}{% trans "Uuenda" %}{% else %}{% trans "Salvesta" %}{% endif %}
+      </button>
+    </form>
+  </div>
+
+  {% if drivers %}
+  <hr class="divider">
+  <h2 style="font-family:var(--ff-serif);font-size:1.3rem;font-weight:300;margin-bottom:1rem">
+    🚗 {% trans "Autod vabade kohtadega" %}
+  </h2>
+  <p class="text-muted text-sm" style="margin-bottom:1rem">{% trans "Võta ühendust, et sõita koos!" %}</p>
+  {% for driver in drivers %}
+  <div class="card" style="padding:1rem 1.25rem">
+    <div class="flex-between">
+      <div>
+        <p style="font-weight:400">{{ driver.name }}</p>
+        {% if driver.coming_from %}
+        <p class="text-muted text-sm">{% trans "Tuleb" %}: {{ driver.coming_from }}</p>
+        {% endif %}
+      </div>
+      <span class="badge badge-gold">{{ driver.free_seats }} {% trans "kohta" %}</span>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+</div>
+{% endblock %}

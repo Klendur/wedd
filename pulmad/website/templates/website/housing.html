@@ -1,0 +1,131 @@
+{% extends "website/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Majutus" %} — Eliise & Klen{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <p class="page-header__eyebrow">{% trans "Öömajad" %}</p>
+  <h1 class="page-header__title">{% trans "Majutus" %}</h1>
+  <p class="page-header__subtitle">{% trans "Vali oma eelistus ja täida vorm allpool." %}</p>
+</div>
+
+<div class="container">
+
+  <!-- Info cards -->
+  <div class="card">
+    <div class="choice-card" style="margin-bottom:.75rem">
+      <div style="display:flex;gap:1rem;align-items:flex-start;padding:.75rem 0">
+        <span style="font-size:1.5rem">🏠</span>
+        <div>
+          <p class="choice-card__name">{% trans "Peamaja" %}</p>
+          <p class="choice-card__desc">{% trans "Koht peamajas — sisaldub hinnas. Kohtade arv on piiratud." %}</p>
+        </div>
+      </div>
+    </div>
+    <hr class="divider" style="margin:.5rem 0">
+    <div style="display:flex;gap:1rem;align-items:flex-start;padding:.75rem 0">
+      <span style="font-size:1.5rem">⛺</span>
+      <div>
+        <p class="choice-card__name">{% trans "Camping" %}</p>
+        <p class="choice-card__desc">{% trans "Tooge kaasa telk või haagissuvilaga tulek — vaba väliala." %}</p>
+      </div>
+    </div>
+    <hr class="divider" style="margin:.5rem 0">
+    <div style="display:flex;gap:1rem;align-items:flex-start;padding:.75rem 0">
+      <span style="font-size:1.5rem">🏡</span>
+      <div>
+        <p class="choice-card__name">{% trans "Eraldi majutus" %} <span class="badge badge-gold">+60€</span></p>
+        <p class="choice-card__desc">{% trans "Privaatne tuba lähiümbruses. Lisatasu 60€ inimese kohta." %}</p>
+      </div>
+    </div>
+    <hr class="divider" style="margin:.5rem 0">
+    <div style="display:flex;gap:1rem;align-items:flex-start;padding:.75rem 0">
+      <span style="font-size:1.5rem">🚗</span>
+      <div>
+        <p class="choice-card__name">{% trans "Ei jää ööseks" %}</p>
+        <p class="choice-card__desc">{% trans "Lahkud samal õhtul — palun märgi transpordi lehel." %}</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Form -->
+  {% if submission %}
+  <div class="status-box">
+    <span class="status-box__icon">✓</span>
+    <div>
+      <p class="status-box__label">{% trans "Salvestatud" %}</p>
+      <p class="status-box__value">{{ submission.get_housing_type_display }} — {{ submission.guests }} {% trans "külalist" %}</p>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="card">
+    <h2 class="card__title">{% trans "Täida eelistus" %}</h2>
+    <p class="card__meta">{% trans "Saad hiljem muuta" %}</p>
+    <hr class="divider">
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label class="form-label">{{ form.name.label }}</label>
+        {{ form.name }}
+        {% if form.name.errors %}<p class="form-error">{{ form.name.errors.0 }}</p>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">{{ form.housing_type.label }}</label>
+        <div class="choice-grid">
+          {% for value, label in form.housing_type.field.choices %}
+          <div class="choice-card">
+            <input type="radio" name="housing_type" id="ht_{{ value }}" value="{{ value }}"
+              {% if form.housing_type.value == value %}checked{% endif %} />
+            <label for="ht_{{ value }}">
+              <span class="choice-card__icon">
+                {% if value == 'peamaja' %}🏠
+                {% elif value == 'camping' %}⛺
+                {% elif value == 'eraldi' %}🏡
+                {% else %}🚗{% endif %}
+              </span>
+              <span class="choice-card__text">
+                <span class="choice-card__name">{{ label }}</span>
+              </span>
+              <span class="choice-card__check"></span>
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+        {% if form.housing_type.errors %}<p class="form-error">{{ form.housing_type.errors.0 }}</p>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.guests.id_for_label }}">{{ form.guests.label }}</label>
+        <input type="number" name="guests" id="{{ form.guests.id_for_label }}"
+          class="form-control" min="1" max="20"
+          value="{{ form.guests.value|default:1 }}" />
+        {% if form.guests.errors %}<p class="form-error">{{ form.guests.errors.0 }}</p>{% endif %}
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
+        <textarea name="notes" id="{{ form.notes.id_for_label }}"
+          class="form-control" rows="3"
+          placeholder="{% trans 'Valikuline...' %}">{{ form.notes.value|default:'' }}</textarea>
+      </div>
+
+      <button type="submit" class="btn btn-gold btn-full">
+        {% if submission %}{% trans "Uuenda" %}{% else %}{% trans "Salvesta" %}{% endif %}
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // add form-control class to django-generated select
+  document.querySelectorAll('select').forEach(s => s.classList.add('form-control'));
+</script>
+{% endblock %}

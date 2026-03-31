@@ -1,0 +1,20 @@
+{% extends "website/base.html" %}
+{% load i18n %}
+{% block title %}Eliise & Klen — {% trans "Pulmad" %}{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <p class="hero__date">{% trans "22. august 2025" %} · {% trans "Eesti" %}</p>
+  <div class="hero__ornament">— ✦ —</div>
+  <h1 class="hero__names">Eliise <span class="hero__amp">&</span><br>Klen</h1>
+  <p class="hero__location">{% trans "Pulmaõhtu" %}</p>
+  <nav class="hero__links">
+    <a href="{% url 'housing' %}" class="btn btn-gold">⌂ {% trans "Majutus" %}</a>
+    <a href="{% url 'food' %}" class="btn btn-outline">{% trans "Toit & Jook" %}</a>
+    <a href="{% url 'info' %}" class="btn btn-outline">{% trans "Info & Päevakava" %}</a>
+    <a href="{% url 'transport' %}" class="btn btn-outline">{% trans "Transport" %}</a>
+    <a href="{% url 'forum' %}" class="btn btn-ghost">{% trans "Foorum" %}</a>
+    <a href="{% url 'photos' %}" class="btn btn-ghost">{% trans "Fotod" %}</a>
+  </nav>
+</section>
+{% endblock %}

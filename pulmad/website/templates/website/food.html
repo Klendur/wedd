@@ -1,0 +1,113 @@
+{% extends "website/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Toit & Jook" %} — Eliise & Klen{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <p class="page-header__eyebrow">{% trans "Menüü" %}</p>
+  <h1 class="page-header__title">{% trans "Toit & Jook" %}</h1>
+  <p class="page-header__subtitle">{% trans "Pulmapäeva roogade nimekiri" %}</p>
+</div>
+
+<div class="container">
+
+  <div class="food-section">
+    <h2 class="food-section__title">{% trans "Eelroad" %}</h2>
+    <div class="food-item">
+      <div>
+        <p class="food-item__name">{% trans "Liha- ja juustutaldrik" %}</p>
+        <p class="food-item__detail">{% trans "Kodumaine sink, suitsujuust, marineeritud kurgid" %}</p>
+      </div>
+    </div>
+    <div class="food-item">
+      <div>
+        <p class="food-item__name">{% trans "Kalataldrik" %}</p>
+        <p class="food-item__detail">{% trans "Suitsulõhe, heeringas, kapparid" %}</p>
+      </div>
+    </div>
+    <div class="food-item">
+      <div>
+        <p class="food-item__name">{% trans "Köögiviljad & dipikastmed" %}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="food-section">
+    <h2 class="food-section__title">{% trans "Pearoad" %}</h2>
+    <div class="food-item">
+      <div>
+        <p class="food-item__name">{% trans "Grillitud seakaela praad" %}</p>
+        <p class="food-item__detail">{% trans "Küüslaugu-ürdivõi, grillitud köögiviljad" %}</p>
+      </div>
+    </div>
+    <div class="food-item">
+      <div>
+        <p class="food-item__name">{% trans "Ahjukartul" %}</p>
+        <p class="food-item__detail">{% trans "Hapukoor, sibul, tüümian" %}</p>
+      </div>
+    </div>
+    <div class="food-item">
+      <div>
+        <p class="food-item__name">{% trans "Värsked salatid" %}</p>
+        <p class="food-item__detail">{% trans "Hooajaline sega-salat, Caesari salat" %}</p>
+      </div>
+    </div>
+    <div class="food-item">
+      <div>
+        <p class="food-item__name">{% trans "Taimetoidu valik" %} <span class="food-item__tag">🌿 VEGAN</span></p>
+        <p class="food-item__detail">{% trans "Grillitud juurviljad, hummus, falafel" %}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="food-section">
+    <h2 class="food-section__title">{% trans "Magustoit" %}</h2>
+    <div class="food-item">
+      <div>
+        <p class="food-item__name">{% trans "Pulmakook" %}</p>
+        <p class="food-item__detail">{% trans "Vanillikreem, maasikad — lõikamine kell 22:00" %}</p>
+      </div>
+    </div>
+    <div class="food-item">
+      <div>
+        <p class="food-item__name">{% trans "Desserdilaud" %}</p>
+        <p class="food-item__detail">{% trans "Puuviljad, šokolaad, koogid" %}</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="food-section">
+    <h2 class="food-section__title">{% trans "Joogid" %}</h2>
+    <div class="food-item">
+      <div><p class="food-item__name">{% trans "Vastuvõtt — prosecco & siider" %}</p></div>
+      <span class="food-item__tag">17:00</span>
+    </div>
+    <div class="food-item">
+      <div><p class="food-item__name">{% trans "Vein (punane & valge)" %}</p></div>
+    </div>
+    <div class="food-item">
+      <div><p class="food-item__name">{% trans "Õlu" %}</p></div>
+    </div>
+    <div class="food-item">
+      <div><p class="food-item__name">{% trans "Alkoholivabad joogid" %}</p>
+        <p class="food-item__detail">{% trans "Limonaad, mahl, vesi, kohv, tee" %}</p>
+      </div>
+    </div>
+    <div class="food-item">
+      <div><p class="food-item__name">{% trans "Kokteilid" %}</p>
+        <p class="food-item__detail">{% trans "Valik baarmenult alates kell 20:00" %}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="text-align:center;padding:2rem">
+    <p class="text-serif" style="font-size:1.3rem;font-style:italic;color:var(--gold)">
+      "{% trans "Kõik joogid ja toit sisalduvad piletis." %}"
+    </p>
+    <p class="text-muted text-sm mt-2">{% trans "Dieedipiirangute korral palun anna eelnevalt teada." %}</p>
+  </div>
+
+</div>
+{% endblock %}
