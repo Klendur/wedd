@@ -20,18 +20,18 @@
         <input type="file" name="images" id="id_images" accept="image/*,video/*" multiple />
         <div class="upload-area__icon" id="upload-icon">📷</div>
         <p class="upload-area__text" id="upload-text">
-          {% if lang == "en" %}Tap to choose files (multiple allowed){% else %}Vajuta failide valimiseks (saad valida mitu){% endif %}
+          {% if lang == "en" %}Tap to choose files (multiple allowed) Max 50mb per file{% else %}Vajuta failide valimiseks (saad valida mitu) Max 50mb faili kohta{% endif %}
         </p>
         <p class="text-muted text-sm mt-1">JPG · PNG · WEBP · MP4 · MOV · WEBM</p>
       </div>
 
       <div class="form-group">
-        <label class="form-label">{% if lang == "en" %}Caption (optional){% else %}Pealdis (valikuline){% endif %}</label>
+        <label class="form-label">{% if lang == "en" %}Your name / caption{% else %}Sinu nimi / Kirjeldus{% endif %}</label>
         <input type="text" name="caption" class="form-control" placeholder="{% if lang == 'en' %}Describe this set...{% else %}Kirjelda fotosid...{% endif %}" />
       </div>
 
       <button type="submit" class="btn btn-gold btn-full" id="upload-btn">
-        {% if lang == "en" %}Upload{% else %}Laadi üles{% endif %}
+        {% if lang == "en" %}Upload{% else %}Lae üles{% endif %}
       </button>
     </form>
   </div>
@@ -57,7 +57,7 @@
           {% endif %}
           
           <a href="{% url 'download_gallery' gallery.pk %}" class="btn btn-gold btn-sm">
-            {% if lang == "en" %}Download All{% else %}Laadi alla{% endif %}
+            {% if lang == "en" %}Download All (zip){% else %}Lae alla (zip){% endif %}
           </a>
         </div>
       </div>

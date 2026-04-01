@@ -94,8 +94,9 @@ class Photo(models.Model):
 from django.contrib.auth.models import User
 
 class RSVP(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    session_key = models.CharField(max_length=40)  # store session key
+    user = models.CharField(max_length=50, blank=True)
     coming = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.user.username} - {'Coming' if self.coming else 'Not coming'}"
+        return f"{self.user or 'Guest'} - {'Coming' if self.coming else 'Not coming'}"

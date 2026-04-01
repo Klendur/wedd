@@ -5,7 +5,8 @@ from .models import (
     ForumPost,
     ForumComment,
     PhotoGallery,
-    Photo
+    Photo,
+    RSVP
 )
 
 
@@ -91,3 +92,10 @@ class PhotoAdmin(admin.ModelAdmin):
     list_display = ('gallery', 'uploaded_at')
     list_filter = ('uploaded_at',)
     ordering = ('uploaded_at',)
+
+@admin.register(RSVP)
+class RSVPAdmin(admin.ModelAdmin):
+    list_display = ('user', 'coming', 'session_key')
+    list_filter = ('coming',)
+    search_fields = ('user', 'session_key')
+    ordering = ('user',)

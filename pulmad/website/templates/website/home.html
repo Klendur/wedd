@@ -6,16 +6,42 @@
 {% block extra_head %}
 <style>
   .home-hero {
+    position: relative;
+    overflow: hidden;
     min-height: calc(100vh - var(--nav-h));
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center; padding: 3rem 1.5rem 2rem;
-    position: relative; overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1.5rem 2rem;
   }
+
+  /* Background video */
+  .home-hero-video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: brightness(0.4) blur(2px);
+  }
+
+  /* Overlay */
   .home-hero::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 50% 40%, rgba(201,168,76,.08) 0%, transparent 65%);
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 65%);
     pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Hero content above video */
+  .home-hero > *:not(.home-hero-video) {
+    position: relative;
+    z-index: 2;
   }
   .home-hero__date {
     font-size: .68rem; letter-spacing: .3em; text-transform: uppercase;
@@ -94,12 +120,50 @@
   .home-links form button {
     width: 100%;
   }
+  .home-links form {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .rsvp-main-btn {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    letter-spacing: .08em;
+    box-shadow: 0 10px 30px rgba(201,168,76,0.25);
+    transform: scale(1.05);
+  }
+
+  .rsvp-main-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 15px 40px rgba(201,168,76,0.35);
+  }
+
+  .info-wrapper a {
+    width: calc(2 * 100% + 0.6rem); 
+    max-width: 320px;    
+    text-align: center;
+    padding: 0.9rem 1rem;
+  }
+  .rsvp-main-btn {
+    animation: pulseGlow 2.5s infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 10px 30px rgba(201,168,76,0.25); }
+    50% { box-shadow: 0 15px 45px rgba(201,168,76,0.45); }
+  }
 </style>
 {% endblock %}
 
 {% block content %}
 <section class="home-hero">
-  <p class="home-hero__date">11. juuli 2026</p>
+  <video autoplay muted loop playsinline class="home-hero-video" poster="{% static 'images/123-fallback.jpg' %}">
+    <source src="{% static 'images/123.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <p class="home-hero__date">{% if lang == "en" %}11. july 2026{% else %}11. juuli 2026{% endif %}</p>
   <div class="home-hero__ornament">— ✦ —</div>
   <h1 class="home-hero__names">Eliise <span class="home-hero__amp">&</span><br>Klen</h1>
   <p class="home-hero__location">
@@ -118,40 +182,41 @@
   </div>
 
   <nav class="home-links">
-    <a href="{% url 'food' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Food & Drinks{% else %}Toit & Jook{% endif %}</a>
-    <a href="{% url 'info' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Info{% else %}Info{% endif %}</a>
-    <a href="{% url 'transport' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Transport{% else %}Transport{% endif %}</a>
-    <a href="{% url 'housing' %}" class="btn btn-outline btn-sm">{% if lang == "en" %}Accommodation{% else %}Majutus{% endif %}</a>
+
     <a href="{% url 'forum' %}" class="btn btn-ghost btn-sm">{% if lang == "en" %}Forum{% else %}Foorum{% endif %}</a>
     <a href="{% url 'photos' %}" class="btn btn-ghost btn-sm">{% if lang == "en" %}Photos{% else %}Fotod{% endif %}</a>
-    {% if user.is_authenticated %}
-      <form action="{% url 'rsvp' %}" method="post">
-        {% csrf_token %}
-        
-        {% if rsvp and rsvp.coming %}
-          <button type="submit"
-            onclick="return confirm('{% if lang == "en" %}Are you sure you want to unregister?{% else %}Kas oled kindel, et tahad ennast eemaldada?{% endif %}')"
-            class="btn btn-outline btn-sm btn-full-row">
-            
-            {% if lang == "en" %}
-              You are registered (click to cancel)
-            {% else %}
-              Oled kirjas (vajuta tühistamiseks)
-            {% endif %}
-            
-          </button>
-        {% else %}
-          <button type="submit" class="btn btn-gold btn-sm btn-full-row">
-            {% if lang == "en" %}Sign up{% else %}Pane ennast kirja{% endif %}
-          </button>
-        {% endif %}
-        
-      </form>
-    {% else %}
-      <a href="{% url 'login' %}" class="btn btn-gold btn-sm btn-full-row">
-        Login to RSVP
-      </a>
-    {% endif %}
+    <div class="info-wrapper">
+      <a href="{% url 'info' %}" class="btn btn-outline btn-bg">Info</a>
+    </div>
+    <form id="rsvp-form" action="{% url 'rsvp' %}" method="post" style="text-align:center;">
+      {% csrf_token %}
+
+      <!-- Always show RSVP form -->
+      <button type="button" id="rsvp-toggle" class="btn btn-gold btn-full-row rsvp-main-btn">
+        {% if lang == "en" %}Sign up{% else %}Pane ennast kirja{% endif %}
+      </button>
+
+      <div id="rsvp-name-block" style="display:none; margin-top:1rem;">
+        <input type="text" name="user"
+              placeholder="{% if lang == 'en' %}Your name{% else %}Sinu nimi{% endif %}"
+              class="form-control"
+              required
+              style="text-align:center; margin-bottom:0.5rem;" />
+        <button type="submit" class="btn btn-gold btn-sm btn-full-row">
+          {% if lang == "en" %}Submit{% else %}Saada{% endif %}
+        </button>
+      </div>
+    </form>
+
+    <script>
+    document.getElementById('rsvp-toggle')?.addEventListener('click', function() {
+      const block = document.getElementById('rsvp-name-block');
+      block.style.display = block.style.display === 'none' ? 'block' : 'none';
+      if (block.style.display === 'block') {
+        block.querySelector('input[name="user"]').focus();
+      }
+    });
+    </script>
   </nav>
 </section>
 
@@ -188,7 +253,7 @@
 
 {% block extra_js %}
 <script>
-  const target = new Date('2026-07-11T15:00:00');
+  const target = new Date('2026-07-11T16:00:00');
   function tick() {
     const now  = new Date();
     const diff = target - now;

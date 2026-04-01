@@ -4,9 +4,9 @@
 
 {% block content %}
 <div class="page-header">
-  <p class="page-header__eyebrow">{% trans "22. august 2025" %}</p>
-  <h1 class="page-header__title">{% trans "Info & Päevakava" %}</h1>
-  <p class="page-header__subtitle">{% trans "Kõik, mida pead teadma pulmapäevaks." %}</p>
+  <p class="page-header__eyebrow">{% if lang == "en" %}11. july 2026{% else %}11. juuli 2026{% endif %}</p>
+  <h1 class="page-header__title">{% if lang == "en" %}Info & Timeline{% else %}Info & Päevakava{% endif %}</h1>
+  <p class="page-header__subtitle">{% if lang == "en" %}Everything you need in one place{% else %}Kõik vajalik ühes kohas{% endif %}</p>
 </div>
 
 <div class="container">
@@ -25,7 +25,7 @@
               <p>{% if lang == "en" %}Männiaru Puhkemaja{% else %}Männiaru Guesthouse{% endif %}</p>
               <p class="text-muted text-sm" style="margin-top:.3rem">
                 <!-- Replace the coordinates and address below when you have them -->
-                <a href="https://www.google.com/maps/search/?api=1&query=59.4370,24.7536"
+                <a href="https://www.google.com/maps/search/?api=1&query=59.196810,24.975233"
                   target="_blank" rel="noopener"
                   style="color:var(--gold);display:inline-flex;align-items:center;gap:.3rem">
                   {% if lang == "en" %}Open in Google Maps{% else %}Ava Google Mapsis{% endif %}
@@ -36,7 +36,7 @@
       </div>
 
       <div style="display:flex;gap:1rem;align-items:flex-start">
-        <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">👗</span>
+        <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">🎩</span>
         <div>
           <p class="form-label" style="margin-bottom:.2rem">{% if lang == "en" %}Dresscode{% else %}Riietus{% endif %}</p>
           <p>{% if lang == "en" %}Fancy / semi-formal{% else %}Pidulik / semi-formaalne{% endif %}</p>
@@ -70,6 +70,14 @@
         </div>
       </div>
 
+      <div style="display:flex;gap:1rem;align-items:flex-start">
+        <span style="font-size:1.2rem;width:1.5rem;text-align:center;flex-shrink:0">📞</span>
+        <div>
+          <p class="form-label" style="margin-bottom:.2rem">Eliise</p>
+          <p>+372 5694 3603</p>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -77,44 +85,58 @@
 
   <!-- Timeline -->
   <h2 style="font-family:var(--ff-serif);font-size:1.5rem;font-weight:300;margin-bottom:1.5rem">
-    {% trans "Päevakava" %}
+    {% if lang == "en" %}Timeline{% else %}Päevakava{% endif %}
   </h2>
 
   <div class="timeline">
     <div class="timeline-item">
-      <p class="timeline-time">15:00</p>
-      <p class="timeline-title">{% trans "Külaliste saabumine" %}</p>
-      <p class="timeline-desc">{% trans "Vastuvõtt toimub välisterrassil. Tervitusdrink ootab teid kohe uksel." %}</p>
+      <p class="timeline-time">16:00</p>
+      <p class="timeline-title">{% if lang == "en" %}Guest arrival{% else %}Külaliste saabumine{% endif %}</p>
+
     </div>
     <div class="timeline-item">
-      <p class="timeline-time">16:00</p>
-      <p class="timeline-title">{% trans "Laulatustseremoonia" %}</p>
-      <p class="timeline-desc">{% trans "Pidulik tseremoonia aias. Palume olla kohal 15 minutit varem." %}</p>
+      <p class="timeline-time">16:30</p>
+      <p class="timeline-title">{% if lang == "en" %}Ceremony{% else %}Laulatus{% endif %}</p>
+      <p class="timeline-desc">{% if lang == "en" %}In the garden{% else %}Toimub peopaiga hoovis{% endif %}</p>
     </div>
     <div class="timeline-item">
       <p class="timeline-time">17:00</p>
-      <p class="timeline-title">{% trans "Vastuvõtt & eelroad" %}</p>
-      <p class="timeline-desc">{% trans "Prosecco, siider ja kerged suupisted. Fotosessioon paariga." %}</p>
+      <p class="timeline-title">{% if lang == "en" %}Welcome drink{% else %}Tervitusjook{% endif %}</p>
+      <p class="timeline-desc">{% if lang == "en" %}In the garden{% else %}Hoovis{% endif %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">17:15</p>
+      <p class="timeline-title">{% if lang == "en" %}Guests are invited to the table{% else %}Külalisi oodatakse lauda{% endif %}</p>
+      <p class="timeline-desc">{% if lang == "en" %}Seating plan will be available here a few days before the wedding{% else %}Istumisplaani saab näha siin lehel paar päeva enne pulma{% endif %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">17:30</p>
+      <p class="timeline-title">{% if lang == "en" %}Wedding couple takes a seat{% else %}Pruutpaari saabumine lauda{% endif %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">17:45</p>
+      <p class="timeline-title">{% if lang == "en" %}Dinner{% else %}Õhtusöök{% endif %}</p>
+      <p class="timeline-desc">{% if lang == "en" %}Please let us know in advance about preferences / allergies{% else %}Eelistuste / allergiate kohta palume varakult teada anda{% endif %}</p>
     </div>
     <div class="timeline-item">
       <p class="timeline-time">18:30</p>
-      <p class="timeline-title">{% trans "Piduõhtusöök" %}</p>
-      <p class="timeline-desc">{% trans "Istumine laudade taha, kõned ja tervitused. Täismenüü serveeritakse." %}</p>
+      <p class="timeline-title">{% if lang == "en" %}Games, music and mingling{% else %}Mängud, muusika ja vaba suhtlus{% endif %}</p>
     </div>
     <div class="timeline-item">
-      <p class="timeline-time">20:00</p>
-      <p class="timeline-title">{% trans "Tantsupõrand avaneb" %}</p>
-      <p class="timeline-desc">{% trans "DJ ja elav muusika. Esimene tants." %}</p>
+      <p class="timeline-time">20:30</p>
+      <p class="timeline-title">{% if lang == "en" %}Newlyweds first dance{% else %}Pruutpaari esimene tants{% endif %}</p>
     </div>
     <div class="timeline-item">
-      <p class="timeline-time">22:00</p>
-      <p class="timeline-title">{% trans "Pulmakook" %}</p>
-      <p class="timeline-desc">{% trans "Koogi lõikamine ja desserdilaud." %}</p>
+      <p class="timeline-time">21:30</p>
+      <p class="timeline-title">{% if lang == "en" %}Games, drinks and snacks{% else %}Mängud, joogid ja suupisted{% endif %}</p>
     </div>
     <div class="timeline-item">
-      <p class="timeline-time">00:00</p>
-      <p class="timeline-title">{% trans "Pidu jätkub" %}</p>
-      <p class="timeline-desc">{% trans "Tants ja meelelahutus kuni varahommikuni." %}</p>
+      <p class="timeline-time">22:30</p>
+      <p class="timeline-title">{% if lang == "en" %}Wedding cake{% else %}Pulmatort{% endif %}</p>
+    </div>
+    <div class="timeline-item">
+      <p class="timeline-time">23:00-06:00</p>
+      <p class="timeline-title">{% if lang == "en" %}Party continues{% else %}Pidu jätkub{% endif %}</p>
     </div>
   </div>
 
@@ -122,7 +144,7 @@
 
   <div class="card" style="text-align:center;padding:2rem">
     <p class="text-serif" style="font-size:1.1rem;font-style:italic;color:var(--grey-lt)">
-      {% trans "Küsimuste korral kirjuta meile — oleme õnnelikud, et olete meiega!" %}
+      {% if lang == "en" %}tekst{% else %}tekst{% endif %}
     </p>
   </div>
 
