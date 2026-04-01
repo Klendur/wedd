@@ -411,7 +411,7 @@
     overlay.addEventListener('click', closeDrawer);
     drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
   }
-  // Auto-dismiss messages
+  // Auto-dismiss messagess
   setTimeout(() => {
     const msgs = document.getElementById('msg-list');
     if (msgs) msgs.style.opacity = '0', msgs.style.transition = 'opacity .5s', setTimeout(() => msgs.remove(), 500);
