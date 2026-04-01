@@ -327,6 +327,7 @@
     ::-webkit-scrollbar-track{background:var(--black)}
     ::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:2px}
     ::-webkit-scrollbar-thumb:hover{background:var(--gold-dk)}
+    #id_images {display: none;}
   </style>
   {% block extra_head %}{% endblock %}
 </head>
@@ -350,11 +351,6 @@
   <a href="{% url 'info' %}" {% if request.resolver_match.url_name == 'info' %}class="active"{% endif %}>
     <span class="nav-icon">◈</span>
     {% if lang == "en" %}Info & Schedule{% else %}Info & Päevakava{% endif %}
-  </a>
-
-  <a href="{% url 'housing' %}" {% if request.resolver_match.url_name == 'housing' %}class="active"{% endif %}>
-    <span class="nav-icon">⌂</span>
-    {% if lang == "en" %}Accommodation{% else %}Majutus{% endif %}
   </a>
 
   <a href="{% url 'forum' %}" {% if request.resolver_match.url_name == 'forum' %}class="active"{% endif %}>
