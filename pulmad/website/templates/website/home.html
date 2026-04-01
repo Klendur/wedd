@@ -160,10 +160,18 @@
 
 {% block content %}
 <section class="home-hero">
-  <video autoplay muted loop playsinline class="home-hero-video" poster="{% static 'images/123-fallback.jpg' %}">
+  <video 
+    autoplay 
+    muted 
+    loop 
+    playsinline 
+    preload="auto"
+    class="home-hero-video" 
+    poster="{% static 'images/123-fallback.jpg' %}">
     <source src="{% static 'images/123.mp4' %}" type="video/mp4">
     Your browser does not support the video tag.
   </video>
+
   <p class="home-hero__date">{% if lang == "en" %}11. july 2026{% else %}11. juuli 2026{% endif %}</p>
   <div class="home-hero__ornament">— ✦ —</div>
   <h1 class="home-hero__names">Eliise <span class="home-hero__amp">&</span><br>Klen</h1>
@@ -183,8 +191,6 @@
   </div>
 
   <nav class="home-links">
-
-
     <form id="rsvp-form" action="{% url 'rsvp' %}" method="post" style="text-align:center;">
       {% csrf_token %}
 
@@ -212,12 +218,21 @@
     </div>
 
     <script>
+    // RSVP toggle
     document.getElementById('rsvp-toggle')?.addEventListener('click', function() {
       const block = document.getElementById('rsvp-name-block');
       block.style.display = block.style.display === 'none' ? 'block' : 'none';
       if (block.style.display === 'block') {
         block.querySelector('input[name="user"]').focus();
       }
+    });
+
+    // Force video play on mobile (iOS/Android)
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.querySelector('.home-hero-video');
+      video.play().catch(() => {
+        document.body.addEventListener('touchstart', () => video.play(), { once: true });
+      });
     });
     </script>
   </nav>
